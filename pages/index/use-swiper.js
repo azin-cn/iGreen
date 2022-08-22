@@ -9,7 +9,7 @@ import {
 
 export default function useSwiper() {
   const list = ref([])
-  const swiperStyle = ref({})
+  const filterStyle = ref({})
   onLoad(() => {
     list.value = [
       'https://img95.699pic.com/photo/50057/6130.jpg_wh860.jpg',
@@ -20,6 +20,6 @@ export default function useSwiper() {
 
   return {
     list,
-    swiperStyle
+    filterStyle
   }
 }

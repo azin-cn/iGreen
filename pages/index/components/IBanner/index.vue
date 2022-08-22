@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'ISwiper',
+  name: 'IBanner',
   props: {
     list: {
       type: Array,

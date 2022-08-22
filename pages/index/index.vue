@@ -7,53 +7,359 @@
     </view>
 
     <!-- swiper -->
-    <ISwiper :list="list" :filterStyle="swiperStyle" />
+    <IBanner :list="list" :filterStyle="filterStyle" />
 
     <!-- scroll -->
     <view class="wrapper">
-      <view class="card publish">
+      <view class="notice pr-1" style="height: 100rpx;">
         <text class="icon iconfont icon-gonggao"></text>
         <text>公告：</text>
-        <swiper autoplay :interval="3000" :duration="1000">
-          <swiper-item>
-            <view class="swiper-item"></view>
+        <swiper
+          class="flex-1 pl-1 pr-2"
+          style="height: 100rpx;  line-height: 100rpx;"
+          autoplay
+          vertical
+          circular
+          :interval="3000"
+          :duration="1000"
+        >
+          <swiper-item class="text-ellipsis">
+            公告信息一公告信息一公告信息一公告信息一
           </swiper-item>
-          <swiper-item>
-            <view class="swiper-item"></view>
+          <swiper-item class="text-ellipsis">
+            公告信息二公告信息二公告信息二公告信息二公告信息二
+          </swiper-item>
+          <swiper-item class="text-ellipsis">
+            公告信息三公告信息三公告信息三公告信息三公告信息三
           </swiper-item>
         </swiper>
       </view>
 
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
-      <image src="../../static/images/icon.png" style="width: 100%;" mode="widthFix" />
+      <!-- 分类回收 -->
+      <view class="card" style="background-color: white;">
+        <view style="margin-top: 12px; padding-top: 12px;">分类回收</view>
+        <view
+          class="recycle flex justify-between align-center flex-nowrap pt-3 pb-3 pl-2 pr-2"
+          style="margin-bottom: 12px;"
+        >
+          <view
+            class="recycle-item text-center"
+            v-for="item in recycleList"
+            :key="item.icon"
+            :style="{
+              padding: '0 4px'
+            }"
+          >
+            <view
+              class="iconfont"
+              :class="item.icon"
+              :style="{
+                width: '110rpx',
+                height: '110rpx',
+                lineHeight: '110rpx',
+                marginBottom: '4px',
+                fontSize: '24px',
+                color: item.color,
+                backgroundColor: item.bg,
+                borderRadius: '50%'
+              }"
+            />
+            <view>{{ item.name }}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 个人信息 -->
+      <view class="card" style="background-color: white;">
+        <view class="position-relative" style="margin-top: 12px; padding-top: 12px;">
+          个人信息
+          <text
+            class="position-absolute right-0 pr-3 iconfont icon-yunduanshuaxin"
+            @click.stop.prevent="onRefresh"
+          />
+        </view>
+        <view
+          class="recycle-brief-info flex justify-between align-center pl-1 pr-1"
+          style="padding: 14px 8px"
+        >
+          <view
+            class="info-item flex justify-between align-center pl-4 pr-4"
+            v-for="item in recycleBriefInfo"
+            :key="item.icon"
+            :style="{
+              width: '48%',
+              height: '140rpx',
+              borderRadius: '24rpx',
+              color: item.color,
+              backgroundColor: item.bg
+            }"
+          >
+            <view class="iconfont" :class="item.icon" :style="{ fontSize: '72rpx' }" />
+            <view class="text">
+              <view class="name" style="font-size: 30rpx;">{{ item.name }}</view>
+              <view class="count" style="font-size: 28rpx;">
+                {{ item.count }} {{ item.unit }}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 预约信息 -->
+      <view
+        class="card"
+        style="background-color: white;margin-top: 12px; padding: 0 4px; padding-bottom: 12px;"
+      >
+        <view style="padding: 12px 0">回收预约</view>
+        <view class="content flex justify-between" style="height: 110px;">
+          <view
+            class="nearby-recycle position-relative flex-4 flex"
+            style="height: 100%;"
+          >
+            <view
+              class="tip position-absolute"
+              :style="{
+                zIndex: 1,
+                bottom: '6px',
+                marginLeft: '50%',
+                transform: 'translateX(-50%)',
+                color: 'rgba(131,131,131,0.6)'
+              }"
+            >
+              附近信息
+            </view>
+            <swiper
+              autoplay
+              circular
+              :interval="4000"
+              :duration="1000"
+              style="overflow: hidden; width: 90%; height: 100%; margin: 0 auto; border-radius: 8px;"
+            >
+              <swiper-item v-for="item in nearbyRecycleList" :key="item">
+                <image
+                  :src="item"
+                  mode="widthFix"
+                  style="width: 100%; height: 100%"
+                ></image>
+              </swiper-item>
+            </swiper>
+          </view>
+          <view class="calling flex-3 flex flex-column justify-between pt-1 pb-1">
+            <view
+              v-for="item in orderOperation"
+              :key="item.icon"
+              class="flex justify-between align-center"
+              :style="{
+                width: '100%',
+                height: '46%',
+                padding: '0 14px',
+                color: item.color,
+                borderRadius: '8px',
+                backgroundColor: item.bg
+              }"
+              @click.stop="operationClick(item.icon)"
+            >
+              <view class="iconfont" :class="item.icon" />
+              <view class="name">{{ item.name }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 地图导航 -->
+      <view class="card" style="padding-bottom: 12px; background-color: white;">
+        <view class="position-relative" style="margin-top: 12px; padding: 12px 4px;">
+          地图导航
+          <text
+            class="position-absolute iconfont icon-daohang"
+            style="right: 100rpx; padding: 0 8rpx;"
+            @click.stop.prevent="navigateToMap"
+          />
+          <text
+            class="position-absolute iconfont icon-dingwei"
+            style="right: 30rpx; padding: 0 8rpx; font-size: 17px;"
+            @click.stop.prevent="moveToLocation"
+          />
+        </view>
+
+        <map
+          id="map"
+          style="width: 100%; height: 400px;"
+          show-location
+          :isHighAccuracy="true"
+          :altitude="true"
+          :latitude="latitude"
+          :longitude="longitude"
+          :markers="markers"
+          :polyline="polyline"
+        ></map>
+      </view>
     </view>
   </view>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { onPageScroll } from '@dcloudio/uni-app';
-import ISwiper from './components/Swiper/index.vue';
+import { ref, computed, nextTick } from 'vue';
+import { onShow, onPageScroll } from '@dcloudio/uni-app';
+
+import { getLocation } from '@/utils/index.js';
+
+import IBanner from './components/IBanner/index.vue';
 import useSwiper from './use-swiper.js';
 
 // 静态
 const $global = getApp().globalData;
+const {
+  title,
+  system: { statusBarHeight }
+} = $global;
 const swiperHeight = 160;
 const navHeight = 54;
-const title = $global.title;
-const headerHeight = $global.system.statusBarHeight + navHeight;
+const headerHeight = statusBarHeight + navHeight;
 
 // hook
-const { list, swiperStyle } = useSwiper();
-
+const { list, filterStyle } = useSwiper();
+// useRecycle
+const recycleList = ref([
+  {
+    name: '回收金属',
+    icon: 'icon-a-ziyuan12',
+    color: '#FBAA01',
+    bg: '#FEF1C7'
+  },
+  {
+    name: '旧衣回收',
+    icon: 'icon-clothes-full',
+    color: '#07AF72',
+    bg: '#DCF7E1'
+  },
+  {
+    name: '纸类回收',
+    icon: 'icon-zhixiang_niupizhixiang-3',
+    color: '#F95959',
+    bg: '#FCE2E1'
+  },
+  {
+    name: '塑料回收',
+    icon: 'icon-zhusuji01',
+    color: '#20AAE9',
+    bg: '#DCF2FD'
+  },
+  {
+    name: '电器回收',
+    icon: 'icon-jiadiandianqi',
+    color: '#5D86E2',
+    bg: '#EAEDFE'
+  }
+]);
+// useBreifInfo
+const recycleBriefInfo = ref([
+  {
+    name: '回收重量',
+    icon: 'icon-tongji',
+    count: '0',
+    unit: 'KG',
+    color: '#764831',
+    bg: '#FFEBE0'
+  },
+  {
+    name: '参与次数',
+    icon: 'icon-pingjiacishu',
+    count: '0',
+    unit: '次',
+    color: '#486091',
+    bg: '#E9ECFF'
+  }
+]);
+// useOrderIcon
+const orderOperation = ref([
+  {
+    name: '在线预约',
+    icon: 'icon-gongzuotai-daikexiadan',
+    color: '#07AF72',
+    bg: '#DCF7E1'
+  },
+  {
+    name: '电话预约',
+    icon: 'icon-dianhuatianchong',
+    color: '#FBAA01',
+    bg: '#FEF1C7'
+  }
+]);
+// useNearByRecycle
+const nearbyRecycleList = ref([
+  'https://img0.baidu.com/it/u=1703483666,1983445664&fm=253&fmt=auto&app=138&f=JPG?w=640&h=426',
+  'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.microelecone.com%2Fuploads%2Fallimg%2F200204%2F1-200204024025238.gif&refer=http%3A%2F%2Fwww.microelecone.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663744185&t=deb68af0c7750aa18fd89cd07904cc44'
+]);
+// useLocation
+const mapContext = uni.createMapContext('map');
+const latitude = ref(39.925539);
+const longitude = ref(116.279037);
+const markers = ref([]);
+const polyline = ref([
+  {
+    points: [],
+    color: '#31c27c',
+    width: 10,
+    arrowLine: true,
+    borderWidth: 2 //线的边框宽度，还有很多参数，请看文档
+  }
+]);
 // ref
 const showHeader = ref(false);
-const latitude = ref(89.755543);
-const longitude = ref(25.05731);
+
+function onRefresh() {
+  console.log('onRefresh');
+}
+
+function operationClick(e) {
+  console.log('operationClick', e);
+}
+
+function navigateToMap() {
+  console.log('navigateToMap');
+}
+
+function moveToLocation() {
+  mapContext.moveToLocation();
+}
+
+onShow(() => {
+  getLocation()
+    .then(res => {
+      console.log(res);
+      latitude.value = res.latitude;
+      longitude.value = res.longitude;
+      markers.value = [
+        {
+          id: 1,
+          latitude: res.latitude + 0.001, //纬度
+          longitude: res.longitude + 0.001, //经度
+          width: 40,
+          height: 40,
+          iconPath: '/static/images/destination.png'
+        }
+      ];
+      polyline.value = [
+        {
+          points: [
+            {
+              latitude: res.latitude, //纬度
+              longitude: res.longitude //经度
+            },
+            {
+              latitude: res.latitude + 0.001, //纬度
+              longitude: res.longitude + 0.001 //经度
+            }
+          ],
+          color: '#31c27c',
+          width: 2,
+          borderWidth: 2 //线的边框宽度，还有很多参数，请看文档
+        }
+      ];
+    })
+    .catch(console.log);
+});
 
 onPageScroll(e => {
   const { scrollTop: top } = e;
@@ -63,7 +369,10 @@ onPageScroll(e => {
   } else if (showHeader && top < swiperHeight - navHeight) {
     showHeader.value = false;
   }
-  swiperStyle.value = { 'backdrop-filter': `blur(${top / 8}px)` };
+  if (top < swiperHeight) {
+    // 避免一直累加
+    filterStyle.value = { 'backdrop-filter': `blur(${top / 8}px)` };
+  }
 });
 </script>
 
@@ -112,9 +421,10 @@ onPageScroll(e => {
   border-radius: $i-border-radius;
 }
 
-.card {
+.notice {
   display: flex;
   align-items: center;
+  height: 100rpx;
   margin-bottom: 12px;
   text-align: left;
   color: $uni-color-success;
@@ -123,17 +433,18 @@ onPageScroll(e => {
   .icon {
     font-size: 16px;
     padding: 0 12px;
-  }
-
-  .title {
-    text-align: left;
-    font-size: 18px;
-    // font-weight: 700;
+    animation: icon-scale 0.8s 10;
   }
 }
 
-.publish {
-  height: 100rpx;
-  line-height: 100rpx;
+@keyframes icon-scale {
+  0% {
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
