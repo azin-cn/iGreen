@@ -1,4 +1,5 @@
 <script>
+import { getLocation } from '@/utils/index.js';
 export default {
   onLaunch: function() {
     this.globalData.system = uni.getSystemInfoSync();
@@ -11,7 +12,9 @@ export default {
   },
   globalData: {
     system: null,
-    title: 'iGreen'
+    title: 'iGreen',
+    initlongitude: '116.46',
+    initlatitude: '39.92'
   }
 };
 </script>
@@ -19,6 +22,7 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 @import '@/static/css/reset.css';
+@import '@/static/css/free.css';
 @import '@/static/fonts/iconfont.css';
 
 .w {
