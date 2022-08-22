@@ -1,6 +1,6 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "i-swiper": "./components/Swiper/index"
+    "i-banner": "./components/IBanner/index"
   }
 }

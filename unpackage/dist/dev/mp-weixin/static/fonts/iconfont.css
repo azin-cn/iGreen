@@ -1,7 +1,7 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3601228 */
-  src: url('iconfont.woff?t=1661074457591') format('woff'),
-       url('iconfont.ttf?t=1661074457591') format('truetype');
+  src: url('iconfont.woff?t=1661175735993') format('woff'),
+       url('iconfont.ttf?t=1661175735993') format('truetype');
 }
 
 .iconfont {
@@ -10,6 +10,122 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weizhimudedi:before {
+  content: "\e677";
+}
+
+.icon-weizhi:before {
+  content: "\e604";
+}
+
+.icon-dingwei:before {
+  content: "\ec32";
+}
+
+.icon-goutongye_zuojiantou_fanhui:before {
+  content: "\e637";
+}
+
+.icon-zuojiantou:before {
+  content: "\e609";
+}
+
+.icon-zuojiantou-:before {
+  content: "\e633";
+}
+
+.icon-daohang:before {
+  content: "\e656";
+}
+
+.icon-daohang1:before {
+  content: "\e632";
+}
+
+.icon-yuyue1:before {
+  content: "\e629";
+}
+
+.icon-yuyuejilu:before {
+  content: "\e685";
+}
+
+.icon-kuaisuxiadan:before {
+  content: "\e69b";
+}
+
+.icon-gongzuotai-daikexiadan:before {
+  content: "\e622";
+}
+
+.icon-header-03:before {
+  content: "\e64a";
+}
+
+.icon-yunduanshuaxin:before {
+  content: "\ec60";
+}
+
+.icon-pingjiacishu:before {
+  content: "\e602";
+}
+
+.icon-tongji:before {
+  content: "\e642";
+}
+
+.icon-zhusuji01:before {
+  content: "\e626";
+}
+
+.icon-ai49:before {
+  content: "\e6a7";
+}
+
+.icon-zhixianghuishou:before {
+  content: "\e61c";
+}
+
+.icon-kehuishou-suliaolei:before {
+  content: "\e620";
+}
+
+.icon-kehuishou-zhilei:before {
+  content: "\e621";
+}
+
+.icon-kehuishouwu-suliaolei:before {
+  content: "\e63e";
+}
+
+.icon-kehuishouwu-feizhilei:before {
+  content: "\e640";
+}
+
+.icon-003-plasticbottle:before {
+  content: "\e601";
+}
+
+.icon-zhongjinshu:before {
+  content: "\e81a";
+}
+
+.icon-clothes-full:before {
+  content: "\e8c7";
+}
+
+.icon-jiadiandianqi:before {
+  content: "\e60e";
+}
+
+.icon-zhixiang_niupizhixiang-3:before {
+  content: "\e61f";
+}
+
+.icon-a-ziyuan12:before {
+  content: "\e613";
 }
 
 .icon-gonggao:before {
