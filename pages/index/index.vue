@@ -168,7 +168,7 @@
                 borderRadius: '8px',
                 backgroundColor: item.bg
               }"
-              @click.stop="operationClick(item.icon)"
+              @click.stop="operationClick(item.key)"
             >
               <view class="iconfont" :class="item.icon" />
               <view class="name">{{ item.name }}</view>
@@ -217,6 +217,8 @@ import { getSettingScope } from '@/utils/getSettingScope.js';
 
 import IBanner from './components/IBanner/index.vue';
 import useSwiper from './use-swiper.js';
+import useBriefInfo from './use-brief-info.js';
+import useOperation from './use-operation.js';
 import useLocation from './use-location.js';
 
 // 静态
@@ -229,9 +231,12 @@ const swiperHeight = 160;
 const navHeight = 54;
 const headerHeight = statusBarHeight + navHeight;
 
+// ref
+const showHeader = ref(false);
+
 // hook
 const { list, filterStyle } = useSwiper();
-// useRecycle
+// todo useRecycle
 const recycleList = ref([
   {
     name: '回收金属',
@@ -264,41 +269,12 @@ const recycleList = ref([
     bg: '#EAEDFE'
   }
 ]);
-// useBreifInfo
-const recycleBriefInfo = ref([
-  {
-    name: '回收重量',
-    icon: 'icon-tongji',
-    count: '0',
-    unit: 'KG',
-    color: '#764831',
-    bg: '#FFEBE0'
-  },
-  {
-    name: '参与次数',
-    icon: 'icon-pingjiacishu',
-    count: '0',
-    unit: '次',
-    color: '#486091',
-    bg: '#E9ECFF'
-  }
-]);
-// useOrderIcon
-const orderOperation = ref([
-  {
-    name: '在线预约',
-    icon: 'icon-gongzuotai-daikexiadan',
-    color: '#07AF72',
-    bg: '#DCF7E1'
-  },
-  {
-    name: '电话预约',
-    icon: 'icon-dianhuatianchong',
-    color: '#FBAA01',
-    bg: '#FEF1C7'
-  }
-]);
-// useNearByRecycle
+
+const { recycleBriefInfo, onRefresh } = useBriefInfo();
+
+const { orderOperation, phoneNumber, operationClick } = useOperation();
+
+// todo useNearByRecycle
 const nearbyRecycleList = ref([
   'https://img0.baidu.com/it/u=1703483666,1983445664&fm=253&fmt=auto&app=138&f=JPG?w=640&h=426',
   'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.microelecone.com%2Fuploads%2Fallimg%2F200204%2F1-200204024025238.gif&refer=http%3A%2F%2Fwww.microelecone.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663744185&t=deb68af0c7750aa18fd89cd07904cc44'
@@ -314,16 +290,6 @@ const {
   markertap
 } = useLocation();
 
-// ref
-const showHeader = ref(false);
-
-function onRefresh() {
-  console.log('onRefresh');
-}
-
-function operationClick(e) {
-  console.log('operationClick', e);
-}
 
 onPageScroll(e => {
   const { scrollTop: top } = e;
