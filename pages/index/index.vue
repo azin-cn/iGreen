@@ -71,7 +71,10 @@
 
       <!-- 个人信息 -->
       <view class="card" style="background-color: white;">
-        <view class="position-relative" style="margin-top: 12px; padding-top: 12px;">
+        <view
+          class="position-relative"
+          style="margin-top: 12px; padding-top: 12px;"
+        >
           个人信息
           <text
             class="position-absolute right-0 pr-3 iconfont icon-yunduanshuaxin"
@@ -94,9 +97,15 @@
               backgroundColor: item.bg
             }"
           >
-            <view class="iconfont" :class="item.icon" :style="{ fontSize: '72rpx' }" />
+            <view
+              class="iconfont"
+              :class="item.icon"
+              :style="{ fontSize: '72rpx' }"
+            />
             <view class="text">
-              <view class="name" style="font-size: 30rpx;">{{ item.name }}</view>
+              <view class="name" style="font-size: 30rpx;">
+                {{ item.name }}
+              </view>
               <view class="count" style="font-size: 28rpx;">
                 {{ item.count }} {{ item.unit }}
               </view>
@@ -144,7 +153,9 @@
               </swiper-item>
             </swiper>
           </view>
-          <view class="calling flex-3 flex flex-column justify-between pt-1 pb-1">
+          <view
+            class="calling flex-3 flex flex-column justify-between pt-1 pb-1"
+          >
             <view
               v-for="item in orderOperation"
               :key="item.icon"
@@ -168,7 +179,10 @@
 
       <!-- 地图导航 -->
       <view class="card" style="padding-bottom: 12px; background-color: white;">
-        <view class="position-relative" style="margin-top: 12px; padding: 12px 4px;">
+        <view
+          class="position-relative"
+          style="margin-top: 12px; padding: 12px 4px;"
+        >
           地图导航
           <text
             class="position-absolute iconfont icon-daohang"
@@ -184,15 +198,12 @@
 
         <map
           id="map"
-          style="width: 100%; height: 400px;"
+          style="width: 98%; height: 400px; margin: 0 auto;"
           show-location
-          :isHighAccuracy="true"
-          :altitude="true"
-          :latitude="latitude"
-          :longitude="longitude"
           :markers="markers"
-          :polyline="polyline"
-        ></map>
+          :include-points="points"
+          @markertap="markertap"
+        />
       </view>
     </view>
   </view>
@@ -202,10 +213,11 @@
 import { ref, computed, nextTick } from 'vue';
 import { onShow, onPageScroll } from '@dcloudio/uni-app';
 
-import { getLocation } from '@/utils/index.js';
+import { getSettingScope } from '@/utils/getSettingScope.js';
 
 import IBanner from './components/IBanner/index.vue';
 import useSwiper from './use-swiper.js';
+import useLocation from './use-location.js';
 
 // 静态
 const $global = getApp().globalData;
@@ -291,20 +303,17 @@ const nearbyRecycleList = ref([
   'https://img0.baidu.com/it/u=1703483666,1983445664&fm=253&fmt=auto&app=138&f=JPG?w=640&h=426',
   'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.microelecone.com%2Fuploads%2Fallimg%2F200204%2F1-200204024025238.gif&refer=http%3A%2F%2Fwww.microelecone.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663744185&t=deb68af0c7750aa18fd89cd07904cc44'
 ]);
-// useLocation
-const mapContext = uni.createMapContext('map');
-const latitude = ref(39.925539);
-const longitude = ref(116.279037);
-const markers = ref([]);
-const polyline = ref([
-  {
-    points: [],
-    color: '#31c27c',
-    width: 10,
-    arrowLine: true,
-    borderWidth: 2 //线的边框宽度，还有很多参数，请看文档
-  }
-]);
+
+const {
+  MapContext,
+  markers,
+  targetPos,
+  points,
+  navigateToMap,
+  moveToLocation,
+  markertap
+} = useLocation();
+
 // ref
 const showHeader = ref(false);
 
@@ -316,51 +325,6 @@ function operationClick(e) {
   console.log('operationClick', e);
 }
 
-function navigateToMap() {
-  console.log('navigateToMap');
-}
-
-function moveToLocation() {
-  mapContext.moveToLocation();
-}
-
-onShow(() => {
-  getLocation()
-    .then(res => {
-      console.log(res);
-      latitude.value = res.latitude;
-      longitude.value = res.longitude;
-      markers.value = [
-        {
-          id: 1,
-          latitude: res.latitude + 0.001, //纬度
-          longitude: res.longitude + 0.001, //经度
-          width: 40,
-          height: 40,
-          iconPath: '/static/images/destination.png'
-        }
-      ];
-      polyline.value = [
-        {
-          points: [
-            {
-              latitude: res.latitude, //纬度
-              longitude: res.longitude //经度
-            },
-            {
-              latitude: res.latitude + 0.001, //纬度
-              longitude: res.longitude + 0.001 //经度
-            }
-          ],
-          color: '#31c27c',
-          width: 2,
-          borderWidth: 2 //线的边框宽度，还有很多参数，请看文档
-        }
-      ];
-    })
-    .catch(console.log);
-});
-
 onPageScroll(e => {
   const { scrollTop: top } = e;
   // 设置前缀条件，避免频繁更新
@@ -371,7 +335,9 @@ onPageScroll(e => {
   }
   if (top < swiperHeight) {
     // 避免一直累加
-    filterStyle.value = { 'backdrop-filter': `blur(${top / 8}px)` };
+    filterStyle.value = {
+      'backdrop-filter': `blur(${top / 8}px)`
+    };
   }
 });
 </script>
@@ -394,9 +360,11 @@ onPageScroll(e => {
   background-color: white;
   height: calc(var(--status-bar-height) + $nav-height);
   transition: all 0.2s;
+
   .header-bar {
     height: var(--status-bar-height);
   }
+
   .nav-bar {
     height: $nav-height;
     line-height: $nav-height;
@@ -430,6 +398,7 @@ onPageScroll(e => {
   color: $uni-color-success;
   font-size: 14px;
   background-color: white;
+
   .icon {
     font-size: 16px;
     padding: 0 12px;
@@ -440,9 +409,11 @@ onPageScroll(e => {
 @keyframes icon-scale {
   0% {
   }
+
   50% {
     transform: scale(1.5);
   }
+
   100% {
     transform: scale(1);
   }
