@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11372650",
+      "name": "电话",
+      "font_class": "dianhua",
+      "unicode": "e8ad",
+      "unicode_decimal": 59565
+    },
+    {
+      "icon_id": "1727469",
+      "name": "232编辑、输入-线性",
+      "font_class": "bianjishuru-xianxing",
+      "unicode": "e8cc",
+      "unicode_decimal": 59596
+    },
+    {
+      "icon_id": "2170918",
+      "name": "电话咨询-电话",
+      "font_class": "dianhuazixun-dianhua",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "11372693",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e8b6",
+      "unicode_decimal": 59574
+    },
+    {
+      "icon_id": "11902268",
+      "name": "定位",
+      "font_class": "dingwei-map",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "24400128",
+      "name": "定位、地图、导航、位置、对焦-11",
+      "font_class": "a-dingweiditudaohangweizhiduijiao-11",
+      "unicode": "e7fa",
+      "unicode_decimal": 59386
+    },
+    {
+      "icon_id": "15055280",
+      "name": "定位位置目的地",
+      "font_class": "dingweiweizhimudedi",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
       "icon_id": "15055350",
       "name": "位置目的地",
       "font_class": "weizhimudedi",

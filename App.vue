@@ -1,7 +1,12 @@
 <script>
-import { getLocation } from '@/utils/index.js';
+import { ref } from 'vue';
+import { login } from '@/api/api-index';
+import { IS_WORKER } from '@/static/js/constants.js';
+import { registerTimeFormat, getLocation } from '@/utils/index.js';
 export default {
   onLaunch: function() {
+    login();
+    registerTimeFormat();
     this.globalData.system = uni.getSystemInfoSync();
   },
   onShow: function() {
@@ -13,8 +18,8 @@ export default {
   globalData: {
     system: null,
     title: 'iGreen',
-    initlongitude: '116.46',
-    initlatitude: '39.92'
+    isWorker: ref(uni.getStorageSync(IS_WORKER)),
+    phoneNumber: ref('13159664733')
   }
 };
 </script>

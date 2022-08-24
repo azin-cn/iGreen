@@ -1,1 +1,152 @@
-"use strict";var o=require("../../common/vendor.js"),C=require("../../utils/index.js"),s=require("../../utils/getSettingScope.js"),L=require("./use-swiper.js");Math||P();const P=()=>"./components/IBanner/index.js",f={__name:"index",setup(D){const h=getApp().globalData,{title:m,system:{statusBarHeight:B}}=h,u=160,d=54,{list:v,filterStyle:p}=L.useSwiper(),F=o.ref([{name:"\u56DE\u6536\u91D1\u5C5E",icon:"icon-a-ziyuan12",color:"#FBAA01",bg:"#FEF1C7"},{name:"\u65E7\u8863\u56DE\u6536",icon:"icon-clothes-full",color:"#07AF72",bg:"#DCF7E1"},{name:"\u7EB8\u7C7B\u56DE\u6536",icon:"icon-zhixiang_niupizhixiang-3",color:"#F95959",bg:"#FCE2E1"},{name:"\u5851\u6599\u56DE\u6536",icon:"icon-zhusuji01",color:"#20AAE9",bg:"#DCF2FD"},{name:"\u7535\u5668\u56DE\u6536",icon:"icon-jiadiandianqi",color:"#5D86E2",bg:"#EAEDFE"}]),b=o.ref([{name:"\u56DE\u6536\u91CD\u91CF",icon:"icon-tongji",count:"0",unit:"KG",color:"#764831",bg:"#FFEBE0"},{name:"\u53C2\u4E0E\u6B21\u6570",icon:"icon-pingjiacishu",count:"0",unit:"\u6B21",color:"#486091",bg:"#E9ECFF"}]),_=o.ref([{name:"\u5728\u7EBF\u9884\u7EA6",icon:"icon-gongzuotai-daikexiadan",color:"#07AF72",bg:"#DCF7E1"},{name:"\u7535\u8BDD\u9884\u7EA6",icon:"icon-dianhuatianchong",color:"#FBAA01",bg:"#FEF1C7"}]),w=o.ref(["https://img0.baidu.com/it/u=1703483666,1983445664&fm=253&fmt=auto&app=138&f=JPG?w=640&h=426","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.microelecone.com%2Fuploads%2Fallimg%2F200204%2F1-200204024025238.gif&refer=http%3A%2F%2Fwww.microelecone.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663744185&t=deb68af0c7750aa18fd89cd07904cc44"]),g=o.index.createMapContext("map"),r=o.ref([]),i={latitude:39.92,longitude:116.46},x=o.ref([]),a=o.ref(!1);function S(){console.log("onRefresh")}function E(t){console.log("operationClick",t)}function k(){console.log("navigateToMap"),s.getSettingScope("userLocation").then(()=>{console.log(i),o.index.openLocation({latitude:i.latitude,longitude:i.longitude,success(){console.log("\u6210\u529F\u6253\u5F00\u5730\u56FE")},fail:console.log})})}function A(t,n){console.log("moveToLocation"),s.getSettingScope("userLocation").then(()=>{t&&n?g.moveToLocation(t,n):g.moveToLocation()}).catch(console.log)}function j(t){const{markerId:n}=t,e=r.value.filter(c=>{const l=c.id===n;return c.iconPath=l?"/static/images/selected.png":"/static/images/destination.png",l})[0];i.latitude=e.latitude,i.longitude=e.longitude}return o.onShow(()=>{s.getSettingScope("userLocation").then(C.getLocation).then(t=>{i.latitude=t.latitudel,i.longitude=t.longitude,g.includePoints({points:[{latitude:t.latitude,longitude:t.longitude},{latitude:t.latitude+.007,longitude:t.longitude+.007},{latitude:t.latitude+.003,longitude:t.longitude+.005},{latitude:t.latitude+.005,longitude:t.longitude+.003}],padding:[80,80,80,80]}),r.value=[{id:1,latitude:t.latitude+.007,longitude:t.longitude+.007,width:40,height:40,iconPath:"/static/images/destination.png"},{id:2,latitude:t.latitude+.005,longitude:t.longitude+.003,width:40,height:40,iconPath:"/static/images/destination.png"},{id:3,latitude:t.latitude+.003,longitude:t.longitude+.005,width:40,height:40,iconPath:"/static/images/destination.png"}]}).catch(console.log)}),o.onPageScroll(t=>{const{scrollTop:n}=t;!a.value&&n>=u-d?a.value=!0:a&&n<u-d&&(a.value=!1),n<u&&(p.value={"backdrop-filter":`blur(${n/8}px)`})}),(t,n)=>o.e({a:a.value},a.value?{b:o.t(o.unref(m))}:{},{c:o.p({list:o.unref(v),filterStyle:o.unref(p)}),d:o.f(F.value,(e,c,l)=>({a:o.n(e.icon),b:e.color,c:e.bg,d:o.t(e.name),e:e.icon})),e:o.o(S),f:o.f(b.value,(e,c,l)=>({a:o.n(e.icon),b:o.t(e.name),c:o.t(e.count),d:o.t(e.unit),e:e.icon,f:e.color,g:e.bg})),g:o.f(w.value,(e,c,l)=>({a:e,b:e})),h:o.f(_.value,(e,c,l)=>({a:o.n(e.icon),b:o.t(e.name),c:e.icon,d:e.color,e:e.bg,f:o.o(T=>E(e.icon),e.icon)})),i:o.o(k),j:o.o(A),k:r.value,l:x.value,m:o.o(j)})}};var y=o._export_sfc(f,[["__scopeId","data-v-57280228"],["__file","D:/workspace/Uniapp/project/iGreen/pages/index/index.vue"]]);f.__runtimeHooks=1;wx.createPage(y);
+"use strict";
+var common_vendor = require("../../common/vendor.js");
+var pages_index_useSwiper = require("./use-swiper.js");
+var pages_index_useNotice = require("./use-notice.js");
+var pages_index_useBriefInfo = require("./use-brief-info.js");
+var pages_index_useNearbyInfo = require("./use-nearby-info.js");
+var pages_index_useOperation = require("./use-operation.js");
+var pages_index_useLocation = require("./use-location.js");
+var pages_index_useTask = require("./use-task.js");
+require("../../api/api-index.js");
+require("../../backend/index.js");
+require("../../backend/config.js");
+require("../../static/js/constants.js");
+require("../../utils/storage/index.js");
+require("../../utils/request.js");
+require("../../utils/index.js");
+require("../../utils/getSettingScope.js");
+if (!Math) {
+  (IBanner + common_vendor.unref(INotice) + common_vendor.unref(IBriefInfo) + common_vendor.unref(IOperation) + common_vendor.unref(IMap) + common_vendor.unref(ITask))();
+}
+const IBanner = () => "./components/IBanner/index.js";
+const INotice = () => "./components/INotice/index.js";
+const IBriefInfo = () => "./components/IBriefInfo/index.js";
+const IOperation = () => "./components/IOperation/index.js";
+const IMap = () => "./components/IMap/index.js";
+const ITask = () => "./components/ITask/index.js";
+const _sfc_main = {
+  __name: "index",
+  setup(__props) {
+    const $global = getApp().globalData;
+    const {
+      title,
+      isWorker,
+      system: { statusBarHeight }
+    } = $global;
+    const swiperHeight = 160;
+    const navHeight = 54;
+    const showHeader = common_vendor.ref(false);
+    const { list, filterStyle, onImageLoadedError } = pages_index_useSwiper.useSwiper();
+    const { notices } = pages_index_useNotice.useNotice();
+    const recycleList = common_vendor.ref([
+      {
+        name: "\u56DE\u6536\u91D1\u5C5E",
+        icon: "icon-a-ziyuan12",
+        color: "#FBAA01",
+        bg: "#FEF1C7"
+      },
+      {
+        name: "\u65E7\u8863\u56DE\u6536",
+        icon: "icon-clothes-full",
+        color: "#07AF72",
+        bg: "#DCF7E1"
+      },
+      {
+        name: "\u7EB8\u7C7B\u56DE\u6536",
+        icon: "icon-zhixiang_niupizhixiang-3",
+        color: "#F95959",
+        bg: "#FCE2E1"
+      },
+      {
+        name: "\u5851\u6599\u56DE\u6536",
+        icon: "icon-zhusuji01",
+        color: "#20AAE9",
+        bg: "#DCF2FD"
+      },
+      {
+        name: "\u7535\u5668\u56DE\u6536",
+        icon: "icon-jiadiandianqi",
+        color: "#5D86E2",
+        bg: "#EAEDFE"
+      }
+    ]);
+    const { recycleBriefInfo, onRefresh } = pages_index_useBriefInfo.useBriefInfo();
+    const { orderOperation, operationClick } = pages_index_useOperation.useOpeartion();
+    const { nearbyRecycleList } = pages_index_useNearbyInfo.useNearByInfo();
+    const {
+      markers,
+      targetPos,
+      points,
+      navigateToMap,
+      moveToLocation,
+      markertap
+    } = pages_index_useLocation.useLocation();
+    const { tasks, taskIconClick } = pages_index_useTask.useTask();
+    common_vendor.onPageScroll((e) => {
+      const { scrollTop: top } = e;
+      if (!showHeader.value && top >= swiperHeight - navHeight) {
+        showHeader.value = true;
+      } else if (showHeader && top < swiperHeight - navHeight) {
+        showHeader.value = false;
+      }
+      if (top < swiperHeight) {
+        filterStyle.value = {
+          "backdrop-filter": `blur(${top / 8}px)`
+        };
+      }
+    });
+    return (_ctx, _cache) => {
+      return common_vendor.e({
+        a: showHeader.value
+      }, showHeader.value ? {
+        b: common_vendor.t(common_vendor.unref(title))
+      } : {}, {
+        c: common_vendor.o(common_vendor.unref(onImageLoadedError)),
+        d: common_vendor.p({
+          list: common_vendor.unref(list),
+          filterStyle: common_vendor.unref(filterStyle)
+        }),
+        e: common_vendor.p({
+          notices: common_vendor.unref(notices)
+        }),
+        f: common_vendor.f(recycleList.value, (item, k0, i0) => {
+          return {
+            a: common_vendor.n(item.icon),
+            b: item.color,
+            c: item.bg,
+            d: common_vendor.t(item.name),
+            e: item.icon
+          };
+        }),
+        g: common_vendor.p({
+          recycleBriefInfo: common_vendor.unref(recycleBriefInfo),
+          onRefresh: common_vendor.unref(onRefresh)
+        }),
+        h: common_vendor.p({
+          nearbyRecycleList: common_vendor.unref(nearbyRecycleList),
+          orderOperation: common_vendor.unref(orderOperation),
+          operationClick: common_vendor.unref(operationClick)
+        }),
+        i: !common_vendor.unref(isWorker)
+      }, !common_vendor.unref(isWorker) ? {
+        j: common_vendor.p({
+          markers: common_vendor.unref(markers),
+          points: common_vendor.unref(points),
+          navigateToMap: common_vendor.unref(navigateToMap),
+          moveToLocation: common_vendor.unref(moveToLocation),
+          markertap: common_vendor.unref(markertap)
+        })
+      } : {}, {
+        k: common_vendor.unref(isWorker)
+      }, common_vendor.unref(isWorker) ? {
+        l: common_vendor.p({
+          taskIconClick: common_vendor.unref(taskIconClick),
+          tasks: common_vendor.unref(tasks)
+        })
+      } : {});
+    };
+  }
+};
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-57280228"], ["__file", "D:/workspace/Uniapp/project/iGreen/pages/index/index.vue"]]);
+_sfc_main.__runtimeHooks = 1;
+wx.createPage(MiniProgramPage);
