@@ -1,5 +1,5 @@
 export default function showToast(args) {
-  wx.showToast({
+  uni.showToast({
     title: 'Hello',
     duration: 1500,
     ...args
@@ -27,7 +27,7 @@ export function showInfoToast(args) {
  * @param {*} args 
  */
 export function showLoading(args) {
-  wx.showLoading({
+  uni.showLoading({
     title: 'loading',
     mask: false,
     success: (result)=>{},
@@ -39,11 +39,11 @@ export function showLoading(args) {
 }
 
 export function hiddenLoading() {
-  wx.hideLoading();
+  uni.hideLoading();
 }
 
 export function showErrorModal(args) {
-  return wx.showModal({
+  return uni.showModal({
     title: 'Error',
     content: '错误！',
     showCancel: true,

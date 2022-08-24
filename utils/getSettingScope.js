@@ -89,3 +89,8 @@ export async function getSettingScopes(scopes) {
     })
   )
 }
+
+
+export function getUserLocationScope() {
+  return getSettingScope('userLocation')
+}
