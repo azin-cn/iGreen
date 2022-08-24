@@ -1,0 +1,1 @@
+export const IS_WORKER = '__is_worker__'
