@@ -10,7 +10,12 @@
     >
       <!-- :style="style" -->
       <swiper-item v-for="item in list" :key="item">
-        <image :src="item" mode="aspectFill" style="width: 100%;"></image>
+        <image
+          :src="item"
+          mode="aspectFill"
+          style="width: 100%;"
+          @error="onError"
+        />
       </swiper-item>
     </swiper>
     <view class="filter" :style="filterStyle"></view>
@@ -28,6 +33,12 @@ export default {
     filterStyle: {
       type: Object,
       default: () => null
+    }
+  },
+  emits: ['error'],
+  methods: {
+    onError(e) {
+      this.$emit('error', e);
     }
   }
 };

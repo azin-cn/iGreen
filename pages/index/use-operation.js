@@ -1,32 +1,32 @@
 import {
-  ref
+  ref,
+  computed,
 } from 'vue'
 import {
-  onLaunch
-} from '@dcloudio/uni-app'
+  makePhoneCall
+} from '@/utils/index.js'
 
 export default function useOpeartion() {
   // useOrderIcon
-  const orderOperation = ref([]);
-  const phoneNumber = ref('');
+  const {
+    isWorker,
+    phoneNumber
+  } = getApp().globalData
 
-
-  function operationClick(key) {
-    console.log('operationClick');
-    switch (key) {
-      case '__online__':
-        console.log('__online__page');
-        break;
-      case '__phone__':
-        uni.makePhoneCall({
-          phoneNumber: phoneNumber.value
-        });
-        break;
-    }
-  }
-
-  onLaunch(() => {
-    orderOperation.value = [{
+  const orderOperation = computed(() => {
+    return isWorker.value ? [{
+      name: '工作台面',
+      key: '__work__',
+      icon: 'icon-gongzuotai-daikexiadan',
+      color: '#07AF72',
+      bg: '#DCF7E1'
+    }, {
+      name: '详细信息',
+      key: '__detail__',
+      icon: 'icon-yuyuejilu',
+      color: '#FBAA01',
+      bg: '#FEF1C7'
+    }] : [{
         name: '在线预约',
         key: '__online__',
         icon: 'icon-gongzuotai-daikexiadan',
@@ -41,13 +41,29 @@ export default function useOpeartion() {
         bg: '#FEF1C7'
       }
     ];
-    phoneNumber.value = '15768281747'
   })
 
 
+  function operationClick(key) {
+    console.log('operationClick');
+    switch (key) {
+      case '__online__':
+        console.log('__online__page');
+        break;
+      case '__phone__':
+        makePhoneCall(phoneNumber.value)
+        break;
+      case '__work__':
+        console.log('__work__');
+        break;
+      case '__detail__':
+        console.log('__detail__')
+        break;
+    }
+  }
+
   return {
     orderOperation,
-    phoneNumber,
     operationClick
   }
 }

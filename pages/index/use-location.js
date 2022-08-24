@@ -1,25 +1,31 @@
 import {
-  ref
+  ref,
+  nextTick
 } from 'vue'
 
 import {
-  onShow
+  onLoad
 } from '@dcloudio/uni-app'
 
 import {
-  getLocation
+  getLocation,
+  openLocation
 } from '@/utils/index.js';
 import {
   getUserLocationScope
 } from '@/utils/getSettingScope.js'
+import {
+  getStoreMarkers
+} from '@/api/api-index';
 
 // useLocation
 export default function useLocation() {
-  const MapContext = uni.createMapContext('map');
+  const MapContext = ref(null);
   const markers = ref([]);
   const targetPos = {
     latitude: 39.92,
-    longitude: 116.46
+    longitude: 116.46,
+    address: '北京市'
   };
   const points = ref([]);
 
@@ -27,15 +33,9 @@ export default function useLocation() {
   function navigateToMap() {
     console.log('navigateToMap');
     getUserLocationScope().then(() => {
-      console.log(targetPos);
-      uni.openLocation({
-        latitude: targetPos.latitude,
-        longitude: targetPos.longitude,
-        success() {
-          console.log('成功打开地图');
-        },
-        fail: console.log
-      });
+      openLocation(targetPos.latitude, targetPos.longitude, {
+        address: '目的地'
+      })
     });
   }
 
@@ -44,8 +44,8 @@ export default function useLocation() {
     getUserLocationScope()
       .then(() => {
         lat && lon ?
-          MapContext.moveToLocation(lat, lon) :
-          MapContext.moveToLocation();
+          MapContext.value.moveToLocation(lat, lon) :
+          MapContext.value.moveToLocation();
       })
       .catch(console.log);
   }
@@ -65,64 +65,37 @@ export default function useLocation() {
     targetPos.longitude = marker.longitude;
   }
 
-  onShow(() => {
-    // 重新获取位置权限
-    getUserLocationScope()
-      .then(getLocation)
-      .then(res => {
-        targetPos.latitude = res.latitudel;
-        targetPos.longitude = res.longitude;
-        MapContext.includePoints({
-          points: [{
-              latitude: res.latitude,
-              longitude: res.longitude
-            },
-            {
-              latitude: res.latitude + 0.007, //纬度
-              longitude: res.longitude + 0.007 //经度
-            },
-            {
-              latitude: res.latitude + 0.003, //纬度
-              longitude: res.longitude + 0.005 //经度
-            },
-            {
-              latitude: res.latitude + 0.005, //纬度
-              longitude: res.longitude + 0.003 //经度
-            }
-          ],
-          padding: [80, 80, 80, 80]
-        });
-        markers.value = [{
-            id: 1,
-            latitude: res.latitude + 0.007, //纬度
-            longitude: res.longitude + 0.007, //经度
-            width: 40,
-            height: 40,
-            iconPath: '/static/images/destination.png'
-          },
-          {
-            id: 2,
-            latitude: res.latitude + 0.005, //纬度
-            longitude: res.longitude + 0.003, //经度
-            width: 40,
-            height: 40,
-            iconPath: '/static/images/destination.png'
-          },
-          {
-            id: 3,
-            latitude: res.latitude + 0.003, //纬度
-            longitude: res.longitude + 0.005, //经度
-            width: 40,
-            height: 40,
-            iconPath: '/static/images/destination.png'
-          }
-        ];
-      })
-      .catch(console.log);
+  // 获取位置
+  const p1 = getUserLocationScope()
+    .then(getLocation)
+    .then(res => {
+      targetPos.latitude = res.latitude;
+      targetPos.longitude = res.longitude;
+    })
+    .catch(console.log);
+
+  const p2 = getStoreMarkers().then(res => {
+    const target = res.markers.map(marker => ({
+      ...marker,
+      id: 10000 * Math.random(), // 必须是Number
+      width: 40,
+      height: 40,
+      iconPath: '/static/images/destination.png'
+    }))
+    markers.value = target
+    MapContext.value.includePoints({
+      points: target,
+      padding: [80, 80, 80, 80]
+    });
+  })
+
+  onLoad(async () => {
+    await nextTick() // 等待更新完成
+    MapContext.value = getApp().globalData.MapContext
+    Promise.allSettled([p1, p2])
   })
 
   return {
-    MapContext,
     markers,
     targetPos,
     points,

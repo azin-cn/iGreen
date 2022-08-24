@@ -7,33 +7,15 @@
     </view>
 
     <!-- swiper -->
-    <IBanner :list="list" :filterStyle="filterStyle" />
+    <IBanner
+      :list="list"
+      :filterStyle="filterStyle"
+      @error="onImageLoadedError"
+    />
 
     <!-- scroll -->
     <view class="wrapper">
-      <view class="notice pr-1" style="height: 100rpx;">
-        <text class="icon iconfont icon-gonggao"></text>
-        <text>公告：</text>
-        <swiper
-          class="flex-1 pl-1 pr-2"
-          style="height: 100rpx;  line-height: 100rpx;"
-          autoplay
-          vertical
-          circular
-          :interval="3000"
-          :duration="1000"
-        >
-          <swiper-item class="text-ellipsis">
-            公告信息一公告信息一公告信息一公告信息一
-          </swiper-item>
-          <swiper-item class="text-ellipsis">
-            公告信息二公告信息二公告信息二公告信息二公告信息二
-          </swiper-item>
-          <swiper-item class="text-ellipsis">
-            公告信息三公告信息三公告信息三公告信息三公告信息三
-          </swiper-item>
-        </swiper>
-      </view>
+      <INotice :notices="notices" />
 
       <!-- 分类回收 -->
       <view class="card" style="background-color: white;">
@@ -69,162 +51,58 @@
         </view>
       </view>
 
-      <!-- 个人信息 -->
-      <view class="card" style="background-color: white;">
-        <view
-          class="position-relative"
-          style="margin-top: 12px; padding-top: 12px;"
-        >
-          个人信息
-          <text
-            class="position-absolute right-0 pr-3 iconfont icon-yunduanshuaxin"
-            @click.stop.prevent="onRefresh"
-          />
-        </view>
-        <view
-          class="recycle-brief-info flex justify-between align-center pl-1 pr-1"
-          style="padding: 14px 8px"
-        >
-          <view
-            class="info-item flex justify-between align-center pl-4 pr-4"
-            v-for="item in recycleBriefInfo"
-            :key="item.icon"
-            :style="{
-              width: '48%',
-              height: '140rpx',
-              borderRadius: '24rpx',
-              color: item.color,
-              backgroundColor: item.bg
-            }"
-          >
-            <view
-              class="iconfont"
-              :class="item.icon"
-              :style="{ fontSize: '72rpx' }"
-            />
-            <view class="text">
-              <view class="name" style="font-size: 30rpx;">
-                {{ item.name }}
-              </view>
-              <view class="count" style="font-size: 28rpx;">
-                {{ item.count }} {{ item.unit }}
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
+      <!-- 用户：个人信息；员工：工作个人信息 -->
+      <IBriefInfo :recycleBriefInfo="recycleBriefInfo" :onRefresh="onRefresh" />
 
-      <!-- 预约信息 -->
-      <view
-        class="card"
-        style="background-color: white;margin-top: 12px; padding: 0 4px; padding-bottom: 12px;"
-      >
-        <view style="padding: 12px 0">回收预约</view>
-        <view class="content flex justify-between" style="height: 110px;">
-          <view
-            class="nearby-recycle position-relative flex-4 flex"
-            style="height: 100%;"
-          >
-            <view
-              class="tip position-absolute"
-              :style="{
-                zIndex: 1,
-                bottom: '6px',
-                marginLeft: '50%',
-                transform: 'translateX(-50%)',
-                color: 'rgba(131,131,131,0.6)'
-              }"
-            >
-              附近信息
-            </view>
-            <swiper
-              autoplay
-              circular
-              :interval="4000"
-              :duration="1000"
-              style="overflow: hidden; width: 90%; height: 100%; margin: 0 auto; border-radius: 8px;"
-            >
-              <swiper-item v-for="item in nearbyRecycleList" :key="item">
-                <image
-                  :src="item"
-                  mode="widthFix"
-                  style="width: 100%; height: 100%"
-                ></image>
-              </swiper-item>
-            </swiper>
-          </view>
-          <view
-            class="calling flex-3 flex flex-column justify-between pt-1 pb-1"
-          >
-            <view
-              v-for="item in orderOperation"
-              :key="item.icon"
-              class="flex justify-between align-center"
-              :style="{
-                width: '100%',
-                height: '46%',
-                padding: '0 14px',
-                color: item.color,
-                borderRadius: '8px',
-                backgroundColor: item.bg
-              }"
-              @click.stop="operationClick(item.key)"
-            >
-              <view class="iconfont" :class="item.icon" />
-              <view class="name">{{ item.name }}</view>
-            </view>
-          </view>
-        </view>
-      </view>
+      <!-- 用户：预约信息；员工：工作台面 -->
+      <IOperation
+        :nearbyRecycleList="nearbyRecycleList"
+        :orderOperation="orderOperation"
+        :operationClick="operationClick"
+      />
 
-      <!-- 地图导航 -->
-      <view class="card" style="padding-bottom: 12px; background-color: white;">
-        <view
-          class="position-relative"
-          style="margin-top: 12px; padding: 12px 4px;"
-        >
-          地图导航
-          <text
-            class="position-absolute iconfont icon-daohang"
-            style="right: 100rpx; padding: 0 8rpx;"
-            @click.stop.prevent="navigateToMap"
-          />
-          <text
-            class="position-absolute iconfont icon-dingwei"
-            style="right: 30rpx; padding: 0 8rpx; font-size: 17px;"
-            @click.stop.prevent="moveToLocation"
-          />
-        </view>
+      <!-- 用户：地图导航；员工：日程安排 -->
+      <IMap
+        v-if="!isWorker"
+        :markers="markers"
+        :points="points"
+        :navigateToMap="navigateToMap"
+        :moveToLocation="moveToLocation"
+        :markertap="markertap"
+      />
 
-        <map
-          id="map"
-          style="width: 98%; height: 400px; margin: 0 auto;"
-          show-location
-          :markers="markers"
-          :include-points="points"
-          @markertap="markertap"
-        />
-      </view>
+      <ITask v-if="isWorker" :taskIconClick="taskIconClick" :tasks="tasks" />
     </view>
+    
   </view>
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, watch, nextTick } from 'vue';
 import { onShow, onPageScroll } from '@dcloudio/uni-app';
 
 import { getSettingScope } from '@/utils/getSettingScope.js';
 
 import IBanner from './components/IBanner/index.vue';
+import INotice from './components/INotice';
+import IBriefInfo from './components/IBriefInfo';
+import IOperation from './components/IOperation';
+import IMap from './components/IMap';
+import ITask from './components/ITask';
+
 import useSwiper from './use-swiper.js';
+import useNotice from './use-notice.js';
 import useBriefInfo from './use-brief-info.js';
+import useNearbyInfo from './use-nearby-info.js';
 import useOperation from './use-operation.js';
 import useLocation from './use-location.js';
+import useTask from './use-task.js';
 
-// 静态
+// global
 const $global = getApp().globalData;
 const {
   title,
+  isWorker,
   system: { statusBarHeight }
 } = $global;
 const swiperHeight = 160;
@@ -235,7 +113,9 @@ const headerHeight = statusBarHeight + navHeight;
 const showHeader = ref(false);
 
 // hook
-const { list, filterStyle } = useSwiper();
+const { list, filterStyle, onImageLoadedError } = useSwiper();
+// useNotice
+const { notices } = useNotice();
 // todo useRecycle
 const recycleList = ref([
   {
@@ -269,19 +149,14 @@ const recycleList = ref([
     bg: '#EAEDFE'
   }
 ]);
-
+// useBriefInfo
 const { recycleBriefInfo, onRefresh } = useBriefInfo();
-
-const { orderOperation, phoneNumber, operationClick } = useOperation();
-
-// todo useNearByRecycle
-const nearbyRecycleList = ref([
-  'https://img0.baidu.com/it/u=1703483666,1983445664&fm=253&fmt=auto&app=138&f=JPG?w=640&h=426',
-  'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.microelecone.com%2Fuploads%2Fallimg%2F200204%2F1-200204024025238.gif&refer=http%3A%2F%2Fwww.microelecone.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663744185&t=deb68af0c7750aa18fd89cd07904cc44'
-]);
-
+// useOperation
+const { orderOperation, operationClick } = useOperation();
+// useNearbyInfo
+const { nearbyRecycleList } = useNearbyInfo();
+// useLocation
 const {
-  MapContext,
   markers,
   targetPos,
   points,
@@ -289,7 +164,8 @@ const {
   moveToLocation,
   markertap
 } = useLocation();
-
+// useTask
+const { tasks, taskIconClick } = useTask();
 
 onPageScroll(e => {
   const { scrollTop: top } = e;
@@ -353,35 +229,5 @@ onPageScroll(e => {
   // margin-top: -24px;
   text-align: center;
   border-radius: $i-border-radius;
-}
-
-.notice {
-  display: flex;
-  align-items: center;
-  height: 100rpx;
-  margin-bottom: 12px;
-  text-align: left;
-  color: $uni-color-success;
-  font-size: 14px;
-  background-color: white;
-
-  .icon {
-    font-size: 16px;
-    padding: 0 12px;
-    animation: icon-scale 0.8s 10;
-  }
-}
-
-@keyframes icon-scale {
-  0% {
-  }
-
-  50% {
-    transform: scale(1.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 </style>

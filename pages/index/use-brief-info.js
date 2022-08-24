@@ -1,39 +1,38 @@
 import {
   ref
 } from 'vue'
-
 import {
-  onLaunch
+  onLoad
 } from '@dcloudio/uni-app'
+import {
+  getBriefInfo,
+  login
+} from '@/api/api-index';
+
+const extension = [{
+  icon: 'icon-tongji',
+  color: '#764831',
+  bg: '#FFEBE0'
+}, {
+  icon: 'icon-pingjiacishu',
+  color: '#486091',
+  bg: '#E9ECFF'
+}]
 
 export default function useBriefInfo() {
   // useBreifInfo
   const recycleBriefInfo = ref([]);
 
   function onRefresh() {
-    console.log('onRefresh');
+    getBriefInfo().then(res => {
+      recycleBriefInfo.value = res.recycleBriefInfo.map((info, index) => ({
+        ...info,
+        ...extension[index]
+      }))
+    })
   }
 
-
-  onLaunch(() => {
-    recycleBriefInfo.value = [{
-        name: '回收重量',
-        icon: 'icon-tongji',
-        count: '0',
-        unit: 'KG',
-        color: '#764831',
-        bg: '#FFEBE0'
-      },
-      {
-        name: '参与次数',
-        icon: 'icon-pingjiacishu',
-        count: '0',
-        unit: '次',
-        color: '#486091',
-        bg: '#E9ECFF'
-      }
-    ]
-  })
+  onLoad(onRefresh)
 
   return {
     recycleBriefInfo,
