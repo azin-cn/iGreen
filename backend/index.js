@@ -17,6 +17,7 @@ export default function router(url, options = {}) {
 
   switch (url) {
     case '/login':
+      console.warn('information：请结合storage中的数据查阅')
       return login(options)
     case '/getUserInfo':
       return getUserInfo(options)
@@ -35,12 +36,12 @@ export default function router(url, options = {}) {
   }
 }
 
+// _request为设置BASE_URL的请求，request为不设定BASE_URL，为原有的请求方式
 export function _request(url, options = {}) {
   const base_url = BASE_URL.replace(/\/$/, '')
   url = url.replace(/^\//, '')
   return request(`${base_url}/${url}`, options)
 }
-
 
 function login(options) {
   if (getToken()) {
@@ -89,7 +90,6 @@ function login(options) {
     }).catch(console.log)
 }
 
-
 function getUserInfo(options = {}) {
   const token = options.data?.token || getToken()
   if (!token) return login()
@@ -106,7 +106,7 @@ function getUserInfo(options = {}) {
       }
     } = res
 
-    console.log(res)
+    // console.log(res)
 
     // 判断是否为员工
     let isWorker =

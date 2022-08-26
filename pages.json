@@ -5,6 +5,29 @@
       "style": {
         "navigationStyle": "custom"
       }
+    }, {
+      "path": "pages/order/index",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/workbench/index",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/admin/index",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/super-admin/index",
+      "style": {
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {
@@ -13,5 +36,18 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "uniIdRouter": {}
+  "uniIdRouter": {},
+  "condition": { //模式配置，仅开发期间生效
+    "current": 0, //当前激活的模式(list 的索引项)
+    "list": [{
+      "name": "index",
+      "path": "pages/index/index",
+      "query": ""
+    },
+    {
+      "name": "order", //模式名称
+      "path": "pages/order/index", //启动页面，必选
+      "query": "" //启动参数，在页面的onLoad函数里面得到
+    }]
+  }
 }

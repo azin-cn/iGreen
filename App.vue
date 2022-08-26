@@ -1,13 +1,17 @@
 <script>
 import { ref } from 'vue';
 import { login } from '@/api/api-index';
-import { IS_WORKER } from '@/static/js/constants.js';
+import { IS_WORKER, IS_ADMIN, IS_SUPER_ADMIN } from '@/static/js/constants.js';
 import { registerTimeFormat, getLocation } from '@/utils/index.js';
 export default {
   onLaunch: function() {
-    login();
     registerTimeFormat();
+    this.globalData.isWorker = ref(uni.getStorageSync(IS_WORKER));
+    this.globalData.isAdmin = ref(uni.getStorageSync(IS_ADMIN));
+    this.globalData.isSuperAdmin = ref(uni.getStorageSync(IS_SUPER_ADMIN));
+    this.globalData.phoneNumber = ref('13159664733');
     this.globalData.system = uni.getSystemInfoSync();
+    // login();
   },
   onShow: function() {
     console.log('App Show');
@@ -18,8 +22,10 @@ export default {
   globalData: {
     system: null,
     title: 'iGreen',
-    isWorker: ref(uni.getStorageSync(IS_WORKER)),
-    phoneNumber: ref('13159664733')
+    isWorker: null,
+    isAdmin: null,
+    isSuperAdmin: null,
+    phoneNumber: ''
   }
 };
 </script>

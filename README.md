@@ -57,5 +57,15 @@
 
 - 小程序slot-template会被多套一层，无法方便的使用插槽封装组件，样式混乱
 - `getApp().globalData.MapContext = uni.createMapContext('map', this)` createMapContext只有绑定了当前的this才能够被其他组件中调用
+- uniui组件的复合框会遮挡下一个复合框、输入框，并且对于点击icon经常无效，无匹配选项不符合人性化，对UI框架源码进行修改，添加一个view，并且在提示select框的z-index修改为更高99
+```vue
+<view class="icon" style="padding: 2px 4px;" @click="toggleSelector">
+  <uni-icons
+    :type="showSelector ? 'top' : 'bottom'"
+    size="14"
+    color="#999"
+  ></uni-icons>
+</view>
+```
 
 ## 拆分

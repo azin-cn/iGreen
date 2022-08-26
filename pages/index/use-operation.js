@@ -6,6 +6,10 @@ import {
   makePhoneCall
 } from '@/utils/index.js'
 
+import {
+  navigateTo
+} from '@/utils/router'
+
 export default function useOpeartion() {
   // useOrderIcon
   const {
@@ -48,7 +52,7 @@ export default function useOpeartion() {
     console.log('operationClick');
     switch (key) {
       case '__online__':
-        console.log('__online__page');
+        navigateTo('/pages/order/index')
         break;
       case '__phone__':
         makePhoneCall(phoneNumber.value)
