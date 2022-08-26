@@ -1,6 +1,10 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/order/index",
+    "pages/workbench/index",
+    "pages/admin/index",
+    "pages/super-admin/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -1,6 +1,7 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
 var utils_index = require("../../utils/index.js");
+var utils_router_index = require("../../utils/router/index.js");
 function useOpeartion() {
   const {
     isWorker,
@@ -40,7 +41,7 @@ function useOpeartion() {
     console.log("operationClick");
     switch (key) {
       case "__online__":
-        console.log("__online__page");
+        utils_router_index.navigateTo("/pages/order/index");
         break;
       case "__phone__":
         utils_index.makePhoneCall(phoneNumber.value);

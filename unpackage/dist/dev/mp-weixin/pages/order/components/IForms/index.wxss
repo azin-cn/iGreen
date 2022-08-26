@@ -1,0 +1,5 @@
+
+.example {
+  padding: 0 15px;
+  background-color: #fff;
+}

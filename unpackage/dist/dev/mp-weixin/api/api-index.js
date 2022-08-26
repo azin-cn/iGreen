@@ -1,8 +1,5 @@
 "use strict";
 var backend_index = require("../backend/index.js");
-function login() {
-  return backend_index.router("/login");
-}
 function getBanners() {
   return backend_index.router(`/getBanners`);
 }
@@ -31,4 +28,3 @@ exports.getEmployeeTasks = getEmployeeTasks;
 exports.getNearbyInfo = getNearbyInfo;
 exports.getNotices = getNotices;
 exports.getStoreMarkers = getStoreMarkers;
-exports.login = login;

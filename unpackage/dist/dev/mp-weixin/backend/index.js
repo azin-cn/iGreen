@@ -27,6 +27,7 @@ utils_request.request.BASE_URL = backend_config.BASE_URL;
 function router(url, options = {}) {
   switch (url) {
     case "/login":
+      console.warn("information\uFF1A\u8BF7\u7ED3\u5408storage\u4E2D\u7684\u6570\u636E\u67E5\u9605");
       return login();
     case "/getUserInfo":
       return getUserInfo(options);
@@ -104,7 +105,6 @@ function getUserInfo(options = {}) {
         roles
       }
     } = res;
-    console.log(res);
     let isWorker = roles.filter((role) => !/user:((select\/)|(view\/))?((view)|(select))+$/.test(role.power)).length !== 0;
     common_vendor.index.setStorageSync(static_js_constants.IS_WORKER, isWorker);
     getApp().globalData.isWorker.value = isWorker;

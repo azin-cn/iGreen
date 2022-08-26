@@ -15,6 +15,7 @@ require("../../utils/storage/index.js");
 require("../../utils/request.js");
 require("../../utils/index.js");
 require("../../utils/getSettingScope.js");
+require("../../utils/router/index.js");
 if (!Math) {
   (IBanner + common_vendor.unref(INotice) + common_vendor.unref(IBriefInfo) + common_vendor.unref(IOperation) + common_vendor.unref(IMap) + common_vendor.unref(ITask))();
 }

@@ -69,7 +69,13 @@ function getSettingScope(scope) {
     });
   });
 }
+async function getSettingScopes(scopes) {
+  return Promise.all(scopes.map((scope) => {
+    return getSettingScope(scope);
+  }));
+}
 function getUserLocationScope() {
   return getSettingScope("userLocation");
 }
+exports.getSettingScopes = getSettingScopes;
 exports.getUserLocationScope = getUserLocationScope;
