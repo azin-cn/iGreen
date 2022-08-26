@@ -20,7 +20,7 @@ export default function preview(sources = [], current = 0) {
       });
     }
 
-    wx.previewMedia({
+    uni.previewMedia({
       success: resolve,
       fail: reject,
       sources,

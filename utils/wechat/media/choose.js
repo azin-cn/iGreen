@@ -1,5 +1,5 @@
 export function chooseMedia(args={}) {
-  return wx.chooseMedia({
+  return uni.chooseMedia({
     count: 9,
     mediaType: ["mix"],
     sourceType: ['album', 'camera'],
@@ -7,7 +7,7 @@ export function chooseMedia(args={}) {
 
     ...args
   });
-}
+} 
 
 export function chooseMediaFromAlbum(args={}) {
   return chooseMedia({
