@@ -9,7 +9,7 @@ var pages_index_useLocation = require("./use-location.js");
 var pages_index_useTask = require("./use-task.js");
 require("../../api/api-index.js");
 require("../../backend/index.js");
-require("../../backend/config.js");
+require("../../api/config.js");
 require("../../static/js/constants.js");
 require("../../utils/storage/index.js");
 require("../../utils/request.js");

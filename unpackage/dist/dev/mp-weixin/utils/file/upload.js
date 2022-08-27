@@ -15,30 +15,21 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-var common_vendor = require("../common/vendor.js");
-var utils_storage_index = require("./storage/index.js");
-function request(url, options = {}) {
+var common_vendor = require("../../common/vendor.js");
+function upload(url, formName, filePath, options = {}) {
   return new Promise((resolve, reject) => {
-    const token = utils_storage_index.getToken();
-    if (token) {
-      options.header = {
-        "content-type": "application/json",
-        Authentication: token
-      };
-    }
-    return common_vendor.index.request(__spreadValues({
+    common_vendor.index.uploadFile(__spreadValues({
       url,
-      method: options.method || "GET",
-      success: (res) => resolve(res.data),
-      fail: (e) => {
-        common_vendor.index.showModal({
-          title: "\u7F51\u7EDC\u5F02\u5E38",
-          content: "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u6C42\u5931\u8D25",
-          showCancel: false
-        });
-        reject(e);
-      }
+      name: formName,
+      filePath,
+      formData: {},
+      success: resolve,
+      fail: reject
     }, options));
   });
 }
-exports.request = request;
+function uploadFiles(url, files, options) {
+  const target = files.map((file) => upload(url, file.formName, file.path, options));
+  return Promise.all(target);
+}
+exports.uploadFiles = uploadFiles;

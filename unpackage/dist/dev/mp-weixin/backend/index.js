@@ -19,11 +19,11 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var common_vendor = require("../common/vendor.js");
-var backend_config = require("./config.js");
+var api_config = require("../api/config.js");
 var static_js_constants = require("../static/js/constants.js");
 var utils_storage_index = require("../utils/storage/index.js");
 var utils_request = require("../utils/request.js");
-utils_request.request.BASE_URL = backend_config.BASE_URL;
+utils_request.request.BASE_URL = api_config.BASE_URL;
 function router(url, options = {}) {
   switch (url) {
     case "/login":
@@ -46,7 +46,7 @@ function router(url, options = {}) {
   }
 }
 function _request(url, options = {}) {
-  const base_url = backend_config.BASE_URL.replace(/\/$/, "");
+  const base_url = api_config.BASE_URL.replace(/\/$/, "");
   url = url.replace(/^\//, "");
   return utils_request.request(`${base_url}/${url}`, options);
 }
@@ -74,15 +74,12 @@ function login(options) {
     console.log(res);
     const {
       code,
-      data: {
-        openid,
-        session_key,
-        token
-      },
+      data: { openid, session_key, token },
       msg
     } = res;
     if (code === 200) {
       utils_storage_index.setToken(token);
+      utils_storage_index.storage.set("openid", openid);
       return token;
     }
     throw new Error(`\u83B7\u53D6token\u5931\u8D25 ${code} ${msg}`);
@@ -101,9 +98,7 @@ function getUserInfo(options = {}) {
     }
   })).then((res) => {
     const {
-      data: {
-        roles
-      }
+      data: { roles }
     } = res;
     let isWorker = roles.filter((role) => !/user:((select\/)|(view\/))?((view)|(select))+$/.test(role.power)).length !== 0;
     common_vendor.index.setStorageSync(static_js_constants.IS_WORKER, isWorker);
@@ -127,9 +122,7 @@ function getStoreMarkers(options) {
   return _request("/getMarkers", options);
 }
 function getEmployeeTasks(options) {
-  const {
-    id
-  } = options.data;
+  const { id } = options.data;
   return _request(`/employee/${id}`, options).then((res) => {
     res.tasks = res.tasks.sort((t1, t2) => {
       if (!t1.time) {

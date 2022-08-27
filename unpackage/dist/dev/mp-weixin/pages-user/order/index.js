@@ -3,8 +3,12 @@ var common_vendor = require("../../common/vendor.js");
 var pagesUser_order_useForm = require("./use-form.js");
 var pagesUser_order_useMedia = require("./use-media.js");
 var pagesUser_order_usePopup = require("./use-popup.js");
+require("../../utils/file/upload.js");
 require("../../utils/index.js");
 require("../../utils/getSettingScope.js");
+require("../../api/config.js");
+require("../../utils/router/index.js");
+require("../../utils/wechat/toast.js");
 require("../../utils/wechat/media/choose.js");
 require("../../utils/file/format.js");
 if (!Array) {
