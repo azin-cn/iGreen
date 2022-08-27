@@ -76,7 +76,7 @@ export default function useMedia(forms) {
         ? chooseImageFromCamera({ count: 1 })
         : chooseImageFromAlbum({ count: maxImageCount - images.length });
     }
-    // 只允许视频，可以多一层if保证条件成立
+    // 只允许视频
     if (videos.length < maxVideoCount) {
       return type === 'camera'
         ? chooseVideoFromCamera({ count: 1 })
