@@ -8,13 +8,16 @@ require("../../utils/getSettingScope.js");
 require("../../utils/wechat/media/choose.js");
 require("../../utils/file/format.js");
 if (!Array) {
-  const _component_uni_section = common_vendor.resolveComponent("uni-section");
-  const _component_uni_popup_message = common_vendor.resolveComponent("uni-popup-message");
-  const _component_uni_popup = common_vendor.resolveComponent("uni-popup");
-  (_component_uni_section + _component_uni_popup_message + _component_uni_popup)();
+  const _easycom_uni_section2 = common_vendor.resolveComponent("uni-section");
+  const _easycom_uni_popup_message2 = common_vendor.resolveComponent("uni-popup-message");
+  const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
+  (_easycom_uni_section2 + _easycom_uni_popup_message2 + _easycom_uni_popup2)();
 }
+const _easycom_uni_section = () => "../../uni_modules/uni-section/components/uni-section/uni-section.js";
+const _easycom_uni_popup_message = () => "../../uni_modules/uni-popup/components/uni-popup-message/uni-popup-message.js";
+const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
-  (common_vendor.unref(IForms) + common_vendor.unref(ISelectMedia))();
+  (common_vendor.unref(IForms) + common_vendor.unref(ISelectMedia) + _easycom_uni_section + _easycom_uni_popup_message + _easycom_uni_popup)();
 }
 const IForms = () => "./components/IForms/index.js";
 const ISelectMedia = () => "./components/ISelectMedia/index.js";

@@ -45,8 +45,12 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _component_uni_section = common_vendor.resolveComponent("uni-section");
-  _component_uni_section();
+  const _easycom_uni_section2 = common_vendor.resolveComponent("uni-section");
+  _easycom_uni_section2();
+}
+const _easycom_uni_section = () => "../../../../uni_modules/uni-section/components/uni-section/uni-section.js";
+if (!Math) {
+  _easycom_uni_section();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
