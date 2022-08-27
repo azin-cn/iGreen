@@ -31,7 +31,7 @@
             :style="{
               padding: '0 4px'
             }"
-          >
+          > 
             <view
               class="iconfont"
               :class="item.icon"

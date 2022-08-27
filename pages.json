@@ -7,6 +7,7 @@
       }
     }
   ],
+  // 使用分包减少主包大小
   "subPackages": [{
       "name": "pages-user",
       "root": "pages-user",
