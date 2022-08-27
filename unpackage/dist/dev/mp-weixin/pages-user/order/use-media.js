@@ -85,15 +85,13 @@ function useMedia(forms) {
     });
   }
   function correct(values, exts, type = "image") {
-    console.log(forms.images, forms.videos);
     const max = type === "image" ? forms.maxImageCount : forms.maxVideoCount;
     const ins = type === "image" ? "images" : "videos";
     const ext = type === "image" ? "imageExts" : "videoExts";
-    forms[ins] = [...forms[ins], ...values];
-    forms[ext] = [...forms[ext], ...exts];
+    forms[ins] = [forms[ins], ...values];
+    forms[ext] = [forms[ext], ...exts];
     forms[ins].length = Math.min(forms[ins].length, max);
     forms[ext].length = Math.min(forms[ext].length, max);
-    console.log(forms.images, forms.imageExts, forms.videos, forms.videoExts);
   }
   return {
     ichooseMedia,
