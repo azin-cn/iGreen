@@ -19,7 +19,8 @@ function useForm(showMessage) {
     imageExts: [],
     videoExts: [],
     maxImageCount: 3,
-    maxVideoCount: 1
+    maxVideoCount: 1,
+    maxDuration: 60
   });
   const formList = common_vendor.reactive([
     {
@@ -75,7 +76,7 @@ function useForm(showMessage) {
       console.log(e);
       const { errMsg } = e;
       utils_wechat_toast.hiddenLoading();
-      showMessage("error", typeof e === "string" || e instanceof Error ? e : errMsg.indexOf("uploadFile:fail") ? errMsg : "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u91CD\u65B0\u63D0\u4EA4\u6216\u4F7F\u7528\u7535\u8BDD\u8054\u7CFB");
+      showMessage("error", typeof e === "string" || e instanceof Error ? e : errMsg.indexOf("uploadFile:fail") !== -1 ? errMsg : "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u91CD\u65B0\u63D0\u4EA4\u6216\u4F7F\u7528\u7535\u8BDD\u8054\u7CFB");
     });
   }
   function checkForm() {
