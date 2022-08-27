@@ -71,7 +71,7 @@ export default function useMedia(forms) {
     // 允许照片或视频
     if (images.length < maxImageCount && videos.length < maxVideoCount) {
       return type === 'camera'
-        ? chooseMediaFromCamera({ count: 1 })
+        ? chooseMediaFromCamera({ count: 1, maxDuration: forms.maxDuration })
         : chooseMediaFromAlbum({
             count: maxImageCount - images.length + maxVideoCount - videos.length
           });
@@ -85,11 +85,11 @@ export default function useMedia(forms) {
     // 只允许视频
     if (videos.length < maxVideoCount) {
       return type === 'camera'
-        ? chooseVideoFromCamera({ count: 1 })
+        ? chooseVideoFromCamera({ count: 1, maxDuration: forms.maxDuration })
         : chooseVideoFromAlbum({ count: maxVideoCount - videos.length });
     }
   }
-  
+
   // compress分支具有压缩功能
   function processMediaPath(res) {
     return Promise.resolve().then(() => {
@@ -98,15 +98,26 @@ export default function useMedia(forms) {
       const { tempFiles } = res;
       const images = [],
         videos = [];
+      let overflow = false;
       // 分类
-      tempFiles.forEach(({ tempFilePath: path }) => {
-        isPicture(path) ? images.push(path) : videos.push(path);
+      tempFiles.forEach(({ tempFilePath: path, duration = 0 }) => {
+        isPicture(path)
+          ? images.push(path)
+          : duration > forms.maxDuration
+          ? (overflow = true) // 超出60秒的视频过滤不添加
+          : videos.push(path);
       });
       // 保证截取
       forms.images = [...forms.images, ...images];
       forms.videos = [...forms.videos, ...videos];
       forms.images.length = Math.min(forms.maxImageCount, forms.images.length);
       forms.videos.length = Math.min(forms.maxVideoCount, forms.videos.length);
+
+      if (overflow) {
+        showErrorToast({
+          title: `限制${forms.maxDuration}秒`
+        });
+      }
     });
   }
 

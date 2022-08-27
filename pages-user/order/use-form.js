@@ -26,7 +26,8 @@ export default function useForm(showMessage) {
     imageExts: [],
     videoExts: [],
     maxImageCount: 3,
-    maxVideoCount: 1
+    maxVideoCount: 1,
+    maxDuration: 60
   });
   const formList = reactive([
     {
@@ -99,7 +100,7 @@ export default function useForm(showMessage) {
           'error',
           typeof e === 'string' || e instanceof Error
             ? e
-            : errMsg.indexOf('uploadFile:fail')
+            : errMsg.indexOf('uploadFile:fail') !== -1
             ? errMsg
             : '网络异常，请重新提交或使用电话联系'
         );
