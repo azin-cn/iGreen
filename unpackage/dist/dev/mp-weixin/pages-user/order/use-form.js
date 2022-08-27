@@ -1,10 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var utils_file_upload = require("../../utils/file/upload.js");
 var utils_index = require("../../utils/index.js");
-var api_config = require("../../api/config.js");
-var utils_router_index = require("../../utils/router/index.js");
-var utils_wechat_toast = require("../../utils/wechat/toast.js");
 function useForm(showMessage) {
   const sequence = ["phone", "username", "remarks"];
   const forms = common_vendor.reactive({
@@ -57,22 +53,9 @@ function useForm(showMessage) {
   }
   function submit() {
     checkForm().then(() => {
-      utils_wechat_toast.showLoading();
-      return processMedia();
-    }).then(() => {
-    }).then(() => {
-      utils_wechat_toast.hiddenLoading();
-      utils_wechat_toast.showSuccessToast({
-        title: "\u9884\u7EA6\u6210\u529F"
-      });
-      const timer = setTimeout(() => {
-        utils_router_index.redirectTo("/pages/index/index");
-        clearTimeout(timer);
-      }, 1500);
+      console.log(forms);
     }).catch((msg) => {
-      console.log(msg);
-      utils_wechat_toast.hiddenLoading();
-      showMessage("error", typeof msg === "string" ? msg : "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u91CD\u65B0\u63D0\u4EA4\u6216\u4F7F\u7528\u7535\u8BDD\u8054\u7CFB");
+      showMessage("error", msg);
     });
   }
   function checkForm() {
@@ -98,33 +81,6 @@ function useForm(showMessage) {
         forms.latitude = latitude;
         forms.longitude = longitude;
       }
-    });
-  }
-  function processMedia() {
-    return Promise.resolve().then(() => {
-      const images = forms.images.map((image) => ({
-        formName: "image",
-        path: image
-      }));
-      if (!images.length)
-        return "";
-      return utils_file_upload.uploadFiles(api_config.MEDIA_URL, images, {
-        header: {}
-      });
-    }).then((res = {}) => {
-      console.log(res);
-    }).then(() => {
-      const videos = forms.videos.map((video) => ({
-        formName: "image",
-        path: video
-      }));
-      if (!videos.length)
-        return;
-      return utils_file_upload.uploadFiles(api_config.MEDIA_URL, videos, {
-        header: {}
-      });
-    }).then((res = {}) => {
-      console.log(res);
     });
   }
   return {

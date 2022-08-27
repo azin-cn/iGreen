@@ -5,7 +5,7 @@ var common_vendor = require("./common/vendor.js");
 require("./backend/index.js");
 var static_js_constants = require("./static/js/constants.js");
 var utils_index = require("./utils/index.js");
-require("./api/config.js");
+require("./backend/config.js");
 require("./utils/storage/index.js");
 require("./utils/request.js");
 require("./utils/getSettingScope.js");

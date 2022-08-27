@@ -19,22 +19,7 @@
   "libVersion": "2.25.3",
   "appid": "wx7e52dd85f8b0f3a0",
   "projectname": "iGreen",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "index",
-          "pathName": "pages/index/index",
-          "query": ""
-        },
-        {
-          "name": "order",
-          "pathName": "pages/order/index",
-          "query": ""
-        }
-      ]
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
