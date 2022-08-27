@@ -37,5 +37,39 @@ function chooseMediaFromCamera(args = {}) {
     sourceType: ["camera"]
   }));
 }
+function chooseImage(args = {}) {
+  return chooseMedia(__spreadProps(__spreadValues({}, args), {
+    mediaType: ["image"]
+  }));
+}
+function chooseImageFromAlbum(args = {}) {
+  return chooseImage(__spreadProps(__spreadValues({}, args), {
+    sourceType: ["album"]
+  }));
+}
+function chooseImageFromCamera(args = {}) {
+  return chooseImage(__spreadProps(__spreadValues({}, args), {
+    sourceType: ["camera"]
+  }));
+}
+function chooseVideo(args = {}) {
+  return chooseMedia(__spreadProps(__spreadValues({}, args), {
+    mediaType: ["video"]
+  }));
+}
+function chooseVideoFromAlbum(args = {}) {
+  return chooseVideo(__spreadProps(__spreadValues({}, args), {
+    sourceType: ["album"]
+  }));
+}
+function chooseVideoFromCamera(args = {}) {
+  return chooseVideo(__spreadProps(__spreadValues({}, args), {
+    sourceType: ["camera"]
+  }));
+}
+exports.chooseImageFromAlbum = chooseImageFromAlbum;
+exports.chooseImageFromCamera = chooseImageFromCamera;
 exports.chooseMediaFromAlbum = chooseMediaFromAlbum;
 exports.chooseMediaFromCamera = chooseMediaFromCamera;
+exports.chooseVideoFromAlbum = chooseVideoFromAlbum;
+exports.chooseVideoFromCamera = chooseVideoFromCamera;

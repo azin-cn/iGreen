@@ -32,7 +32,9 @@ const _sfc_main = {
   emits: ["chooseMedia", "previewMedia", "delMedia"],
   methods: {
     chooseMedia(e) {
-      this.$emit("chooseMedia", e);
+      if (!this.disabledSelection) {
+        this.$emit("chooseMedia", e);
+      }
     },
     previewMedia(e) {
       this.$emit("previewMedia", e);
@@ -58,7 +60,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.t($props.maxVideoCount),
     e: $options.disabledSelection ? "" : "bg-hover-light",
     f: $options.disabledSelection ? "#ccc" : "",
-    g: common_vendor.o(($event) => $options.disabledSelection ? "" : $options.chooseMedia),
+    g: common_vendor.o((...args) => $options.chooseMedia && $options.chooseMedia(...args)),
     h: $props.images.length
   }, $props.images.length ? {
     i: common_vendor.f($props.images, (item, index, i0) => {

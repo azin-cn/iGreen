@@ -6,7 +6,7 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": false,
+    "es6": true,
     "minified": false,
     "babelSetting": {
       "ignore": [],
@@ -18,22 +18,7 @@
   "libVersion": "2.23.4",
   "appid": "wx7e52dd85f8b0f3a0",
   "projectname": "iGreen",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "index",
-          "pathName": "pages/index/index",
-          "query": ""
-        },
-        {
-          "name": "order",
-          "pathName": "pages/order/index",
-          "query": ""
-        }
-      ]
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

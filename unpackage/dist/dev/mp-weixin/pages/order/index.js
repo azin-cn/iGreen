@@ -6,6 +6,7 @@ var pages_order_usePopup = require("./use-popup.js");
 require("../../utils/index.js");
 require("../../utils/getSettingScope.js");
 require("../../utils/wechat/media/choose.js");
+require("../../utils/file/format.js");
 if (!Array) {
   const _easycom_uni_section2 = common_vendor.resolveComponent("uni-section");
   const _easycom_uni_popup_message2 = common_vendor.resolveComponent("uni-popup-message");
