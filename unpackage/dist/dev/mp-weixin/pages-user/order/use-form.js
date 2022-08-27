@@ -140,7 +140,7 @@ function useForm(showMessage) {
         msg,
         data: { url }
       } = JSON.parse(r.data);
-      target.push(url || `\u4E0A\u4F20\u5931\u8D25\uFF0C${code}`);
+      target.push(url || `\u4E0A\u4F20\u5931\u8D25\uFF0C${code} ${msg}`);
     });
     type === "image" ? backups.images = target : backups.videos = target;
   }

@@ -180,7 +180,7 @@ export default function useForm(showMessage) {
         msg,
         data: { url }
       } = JSON.parse(r.data);
-      target.push(url || `上传失败，${code}`);
+      target.push(url || `上传失败，${code} ${msg}`);
     });
     type === 'image' ? (backups.images = target) : (backups.videos = target);
   }
