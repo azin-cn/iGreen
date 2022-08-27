@@ -29,8 +29,8 @@ export function showInfoToast(args) {
 export function showLoading(args) {
   uni.showLoading({
     title: 'loading',
-    mask: false,
-    success: (result)=>{},
+    mask: true,
+    success: ()=>{},
     fail: ()=>{},
     complete: ()=>{},
     
