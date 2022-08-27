@@ -10,6 +10,12 @@ import {
 } from '@/utils/wechat/media/choose.js';
 import { isPicture } from '@/utils/file/format.js';
 import { getSettingScopes } from '@/utils/getSettingScope.js';
+import { compress, compressMedia } from '../../utils/wechat/media/compress';
+import {
+  hiddenLoading,
+  showErrorToast,
+  showLoading
+} from '../../utils/wechat/toast';
 
 export default function useMedia(forms) {
   function ichooseMedia() {
@@ -83,19 +89,18 @@ export default function useMedia(forms) {
         : chooseVideoFromAlbum({ count: maxVideoCount - videos.length });
     }
   }
-
+  
+  // compress分支具有压缩功能
   function processMediaPath(res) {
     return Promise.resolve().then(() => {
       // 通过后缀名判断是否为图片，如果选择四个图片，保留前三个
+      // console.log(res);
       const { tempFiles } = res;
       const images = [],
         videos = [];
-      tempFiles.forEach(({ tempFilePath, thumbTempFilePath }) => {
-        // 图片：地址，视频：地址和封面图地址t，bug：humb真机无法获取
-        isPicture(tempFilePath)
-          ? images.push(tempFilePath)
-          : videos.push(tempFilePath);
-        // : videos.push({ value: tempFilePath, thumb: thumbTempFilePath });
+      // 分类
+      tempFiles.forEach(({ tempFilePath: path }) => {
+        isPicture(path) ? images.push(path) : videos.push(path);
       });
       // 保证截取
       forms.images = [...forms.images, ...images];

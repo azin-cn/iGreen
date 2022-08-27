@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "i-banner": "./components/IBanner/index",
+    "i-notice": "./components/INotice/index",
+    "i-brief-info": "./components/IBriefInfo/index",
+    "i-operation": "./components/IOperation/index",
+    "i-map": "./components/IMap/index",
+    "i-task": "./components/ITask/index"
+  }
+}

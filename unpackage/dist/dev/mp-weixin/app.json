@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [
+    {
+      "root": "pages-user",
+      "pages": [
+        "order/index"
+      ],
+      "name": "pages-user"
+    },
+    {
+      "root": "pages-worker",
+      "pages": [
+        "workbench/index"
+      ],
+      "name": "pages-worker"
+    },
+    {
+      "root": "pages-admin",
+      "pages": [
+        "admin/index",
+        "super-admin/index"
+      ],
+      "name": "pages-admin"
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "iGreen",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取位置信息"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseAddress",
+    "chooseLocation",
+    "choosePoi",
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "startLocationUpdate"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {}
+}
