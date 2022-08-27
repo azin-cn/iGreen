@@ -15,7 +15,7 @@
           :style="{
             color: disabledSelection ? '#ccc' : ''
           }"
-          @click="disabledSelection ? '' : chooseMedia"
+          @click="chooseMedia"
         >
           拍摄/相册
         </view>
@@ -105,7 +105,9 @@ export default {
   emits: ['chooseMedia', 'previewMedia', 'delMedia'],
   methods: {
     chooseMedia(e) {
-      this.$emit('chooseMedia', e);
+      if (!this.disabledSelection) {
+        this.$emit('chooseMedia', e);
+      }
     },
     previewMedia(e) {
       this.$emit('previewMedia', e);
