@@ -100,8 +100,8 @@ export default function useMedia(forms) {
       // 保证截取
       forms.images = [...forms.images, ...images];
       forms.videos = [...forms.videos, ...videos];
-      forms.images.length = forms.maxImageCount;
-      forms.videos.length = forms.maxVideoCount;
+      forms.images.length = Math.min(forms.maxImageCount, forms.images.length);
+      forms.videos.length = Math.min(forms.maxVideoCount, forms.videos.length);
     });
   }
 
