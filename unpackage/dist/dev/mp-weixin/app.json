@@ -1,10 +1,30 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/order/index",
-    "pages/workbench/index",
-    "pages/admin/index",
-    "pages/super-admin/index"
+    "pages/index/index"
+  ],
+  "subPackages": [
+    {
+      "root": "pages-user",
+      "pages": [
+        "order/index"
+      ],
+      "name": "pages-user"
+    },
+    {
+      "root": "pages-worker",
+      "pages": [
+        "workbench/index"
+      ],
+      "name": "pages-worker"
+    },
+    {
+      "root": "pages-admin",
+      "pages": [
+        "admin/index",
+        "super-admin/index"
+      ],
+      "name": "pages-admin"
+    }
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -17,5 +37,14 @@
       "desc": "获取位置信息"
     }
   },
+  "requiredPrivateInfos": [
+    "chooseAddress",
+    "chooseLocation",
+    "choosePoi",
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "startLocationUpdate"
+  ],
   "usingComponents": {}
 }

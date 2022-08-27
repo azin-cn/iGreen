@@ -23,11 +23,11 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.example.data-v-f14a0c9e {
+.example.data-v-e3d5ae66 {
   padding: 0 15px;
   background-color: #fff;
 }
-.del-icon.data-v-f14a0c9e::before {
+.del-icon.data-v-e3d5ae66::before {
   position: absolute;
   z-index: 99;
   top: 0;

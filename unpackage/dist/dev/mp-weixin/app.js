@@ -11,10 +11,10 @@ require("./utils/request.js");
 require("./utils/getSettingScope.js");
 if (!Math) {
   "./pages/index/index.js";
-  "./pages/order/index.js";
-  "./pages/workbench/index.js";
-  "./pages/admin/index.js";
-  "./pages/super-admin/index.js";
+  "./pages-user/order/index.js";
+  "./pages-worker/workbench/index.js";
+  "./pages-admin/admin/index.js";
+  "./pages-admin/super-admin/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

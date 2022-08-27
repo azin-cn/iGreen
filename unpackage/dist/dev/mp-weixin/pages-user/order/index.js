@@ -1,8 +1,8 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var pages_order_useForm = require("./use-form.js");
-var pages_order_useMedia = require("./use-media.js");
-var pages_order_usePopup = require("./use-popup.js");
+var pagesUser_order_useForm = require("./use-form.js");
+var pagesUser_order_useMedia = require("./use-media.js");
+var pagesUser_order_usePopup = require("./use-popup.js");
 require("../../utils/index.js");
 require("../../utils/getSettingScope.js");
 require("../../utils/wechat/media/choose.js");
@@ -26,9 +26,9 @@ const __default__ = {
 };
 const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
   setup(__props) {
-    const { popupRef, popup, showMessage } = pages_order_usePopup.usePopup();
-    const { formList, forms, iconClick, submit, checkForm } = pages_order_useForm.useForm(showMessage);
-    const { ichooseMedia, ipreviewMedia, idelMedia } = pages_order_useMedia.useMedia(forms);
+    const { popupRef, popup, showMessage } = pagesUser_order_usePopup.usePopup();
+    const { formList, forms, iconClick, submit, checkForm } = pagesUser_order_useForm.useForm(showMessage);
+    const { ichooseMedia, ipreviewMedia, idelMedia } = pagesUser_order_useMedia.useMedia(forms);
     return (_ctx, _cache) => {
       return {
         a: common_vendor.t(new Date().toLocaleString()),
@@ -55,7 +55,7 @@ const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
           message: common_vendor.unref(popup).message,
           duration: common_vendor.unref(popup).duration
         }),
-        j: common_vendor.sr(popupRef, "0ca91b30-3", {
+        j: common_vendor.sr(popupRef, "031394f8-3", {
           "k": "popupRef"
         }),
         k: common_vendor.p({
@@ -65,5 +65,5 @@ const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
     };
   }
 });
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0ca91b30"], ["__file", "D:/workspace/Uniapp/project/iGreen/pages/order/index.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-031394f8"], ["__file", "D:/workspace/Uniapp/project/iGreen/pages-user/order/index.vue"]]);
 wx.createPage(MiniProgramPage);

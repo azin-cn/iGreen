@@ -41,7 +41,7 @@ function useOpeartion() {
     console.log("operationClick");
     switch (key) {
       case "__online__":
-        utils_router_index.navigateTo("/pages/order/index");
+        utils_router_index.navigateTo("/pages-user/order/index");
         break;
       case "__phone__":
         utils_index.makePhoneCall(phoneNumber.value);

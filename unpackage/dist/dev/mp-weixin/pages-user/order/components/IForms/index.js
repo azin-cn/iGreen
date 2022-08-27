@@ -41,7 +41,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.f($props.formList, (item, index, i0) => {
       return {
-        a: "39d60930-3-" + i0 + "," + ("39d60930-2-" + i0),
+        a: "775f489c-3-" + i0 + "," + ("775f489c-2-" + i0),
         b: common_vendor.o(($event) => item.value = $event),
         c: common_vendor.p({
           candidates: item.candidates,
@@ -49,7 +49,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           modelValue: item.value
         }),
         d: item.label,
-        e: "39d60930-2-" + i0 + ",39d60930-1",
+        e: "775f489c-2-" + i0 + ",775f489c-1",
         f: common_vendor.p({
           label: item.label,
           required: item.required
@@ -86,5 +86,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/workspace/Uniapp/project/iGreen/pages/order/components/IForms/index.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/workspace/Uniapp/project/iGreen/pages-user/order/components/IForms/index.vue"]]);
 wx.createComponent(Component);

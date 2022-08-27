@@ -1,0 +1,20 @@
+{
+  "name": "iGreen",
+  "version": "1.0.0",
+  "description": "iGreen",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azin-cn/iGreen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azin-cn/iGreen/issues"
+  },
+  "homepage": "https://github.com/azin-cn/iGreen#readme"
+}

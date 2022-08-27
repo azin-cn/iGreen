@@ -8,6 +8,7 @@
     "urlCheck": false,
     "es6": true,
     "minified": false,
+    "ignoreUploadUnusedFiles": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -15,10 +16,25 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "2.23.4",
+  "libVersion": "2.25.3",
   "appid": "wx7e52dd85f8b0f3a0",
   "projectname": "iGreen",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "index",
+          "pathName": "pages/index/index",
+          "query": ""
+        },
+        {
+          "name": "order",
+          "pathName": "pages/order/index",
+          "query": ""
+        }
+      ]
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

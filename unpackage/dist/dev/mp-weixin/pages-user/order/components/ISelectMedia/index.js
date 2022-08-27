@@ -82,5 +82,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f14a0c9e"], ["__file", "D:/workspace/Uniapp/project/iGreen/pages/order/components/ISelectMedia/index.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e3d5ae66"], ["__file", "D:/workspace/Uniapp/project/iGreen/pages-user/order/components/ISelectMedia/index.vue"]]);
 wx.createComponent(Component);
