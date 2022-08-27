@@ -16,4 +16,5 @@ function isPicture(file) {
     "tiff"
   ].includes(getExtName(file.toLowerCase()));
 }
+exports.getExtName = getExtName;
 exports.isPicture = isPicture;

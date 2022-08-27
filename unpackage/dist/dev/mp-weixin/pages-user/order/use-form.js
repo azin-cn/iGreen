@@ -3,7 +3,6 @@ var common_vendor = require("../../common/vendor.js");
 var utils_file_upload = require("../../utils/file/upload.js");
 var utils_index = require("../../utils/index.js");
 var api_config = require("../../api/config.js");
-var utils_router_index = require("../../utils/router/index.js");
 var utils_wechat_toast = require("../../utils/wechat/toast.js");
 function useForm(showMessage) {
   const sequence = ["phone", "username", "remarks"];
@@ -17,6 +16,8 @@ function useForm(showMessage) {
     ordertime: "",
     images: [],
     videos: [],
+    imageExts: [],
+    videoExts: [],
     maxImageCount: 3,
     maxVideoCount: 1
   });
@@ -43,6 +44,10 @@ function useForm(showMessage) {
       candidates: []
     }
   ]);
+  const backups = {
+    images: null,
+    videos: null
+  };
   function iconClick() {
     common_vendor.index.chooseLocation({
       success({ address, latitude, longitude }) {
@@ -60,19 +65,17 @@ function useForm(showMessage) {
       utils_wechat_toast.showLoading();
       return processMedia();
     }).then(() => {
+      console.log(forms, backups);
     }).then(() => {
       utils_wechat_toast.hiddenLoading();
       utils_wechat_toast.showSuccessToast({
         title: "\u9884\u7EA6\u6210\u529F"
       });
-      const timer = setTimeout(() => {
-        utils_router_index.redirectTo("/pages/index/index");
-        clearTimeout(timer);
-      }, 1500);
-    }).catch((msg) => {
-      console.log(msg);
+    }).catch((e) => {
+      console.log(e);
+      const { errMsg } = e;
       utils_wechat_toast.hiddenLoading();
-      showMessage("error", typeof msg === "string" ? msg : "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u91CD\u65B0\u63D0\u4EA4\u6216\u4F7F\u7528\u7535\u8BDD\u8054\u7CFB");
+      showMessage("error", typeof e === "string" || e instanceof Error ? e : errMsg.indexOf("uploadFile:fail") ? errMsg : "\u7F51\u7EDC\u5F02\u5E38\uFF0C\u8BF7\u91CD\u65B0\u63D0\u4EA4\u6216\u4F7F\u7528\u7535\u8BDD\u8054\u7CFB");
     });
   }
   function checkForm() {
@@ -112,7 +115,7 @@ function useForm(showMessage) {
         header: {}
       });
     }).then((res = {}) => {
-      console.log(res);
+      resolveData(res, "image");
     }).then(() => {
       const videos = forms.videos.map((video) => ({
         formName: "image",
@@ -124,8 +127,22 @@ function useForm(showMessage) {
         header: {}
       });
     }).then((res = {}) => {
-      console.log(res);
+      resolveData(res, "video");
     });
+  }
+  function resolveData(res, type = "image") {
+    var _a;
+    console.log(res);
+    const target = [];
+    (_a = res.forEach) == null ? void 0 : _a.call(res, (r) => {
+      const {
+        code,
+        msg,
+        data: { url }
+      } = JSON.parse(r.data);
+      target.push(url || `\u4E0A\u4F20\u5931\u8D25\uFF0C${code}`);
+    });
+    type === "image" ? backups.images = target : backups.videos = target;
   }
   return {
     forms,

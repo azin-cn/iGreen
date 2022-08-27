@@ -128,7 +128,7 @@ export default {
 .del-icon {
   &::before {
     position: absolute;
-    z-index: 99;
+    z-index: 1;
     top: 0;
     right: 0;
     font-size: 32rpx;

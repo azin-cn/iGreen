@@ -3,6 +3,7 @@ var common_vendor = require("../../common/vendor.js");
 var utils_wechat_media_choose = require("../../utils/wechat/media/choose.js");
 var utils_file_format = require("../../utils/file/format.js");
 var utils_getSettingScope = require("../../utils/getSettingScope.js");
+var utils_wechat_media_compress = require("../../utils/wechat/media/compress.js");
 function useMedia(forms) {
   function ichooseMedia() {
     common_vendor.index.showActionSheet({
@@ -56,16 +57,43 @@ function useMedia(forms) {
   }
   function processMediaPath(res) {
     return Promise.resolve().then(() => {
+      console.log(res);
       const { tempFiles } = res;
       const images = [], videos = [];
-      tempFiles.forEach(({ tempFilePath, thumbTempFilePath }) => {
-        utils_file_format.isPicture(tempFilePath) ? images.push(tempFilePath) : videos.push(tempFilePath);
+      tempFiles.forEach(({ tempFilePath: path }) => {
+        utils_file_format.isPicture(path) ? images.push(path) : videos.push(path);
       });
-      forms.images = [...forms.images, ...images];
-      forms.videos = [...forms.videos, ...videos];
-      forms.images.length = Math.min(forms.images.length, forms.maxImageCount);
-      forms.videos.length = Math.min(forms.videos.length, forms.maxVideoCount);
+      if (images.length && videos.length) {
+        return utils_wechat_media_compress.compressMedia(images).then(([values, exts]) => {
+          correct(values, exts, "image");
+        }).then(() => {
+          return utils_wechat_media_compress.compressMedia(videos);
+        }).then(([values, exts]) => {
+          correct(values, exts, "video");
+        });
+      }
+      if (images.length) {
+        return utils_wechat_media_compress.compressMedia(images).then(([values, exts]) => {
+          correct(values, exts, "image");
+        });
+      }
+      if (videos.length) {
+        return utils_wechat_media_compress.compressMedia(videos).then(([values, exts]) => {
+          correct(values, exts, "video");
+        });
+      }
     });
+  }
+  function correct(values, exts, type = "image") {
+    console.log(forms.images, forms.videos);
+    const max = type === "image" ? forms.maxImageCount : forms.maxVideoCount;
+    const ins = type === "image" ? "images" : "videos";
+    const ext = type === "image" ? "imageExts" : "videoExts";
+    forms[ins] = [...forms[ins], ...values];
+    forms[ext] = [...forms[ext], ...exts];
+    forms[ins].length = Math.min(forms[ins].length, max);
+    forms[ext].length = Math.min(forms[ext].length, max);
+    console.log(forms.images, forms.imageExts, forms.videos, forms.videoExts);
   }
   return {
     ichooseMedia,

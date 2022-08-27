@@ -10,6 +10,12 @@ import {
 } from '@/utils/wechat/media/choose.js';
 import { isPicture } from '@/utils/file/format.js';
 import { getSettingScopes } from '@/utils/getSettingScope.js';
+import { compress, compressMedia } from '../../utils/wechat/media/compress';
+import {
+  hiddenLoading,
+  showErrorToast,
+  showLoading
+} from '../../utils/wechat/toast';
 
 export default function useMedia(forms) {
   function ichooseMedia() {
@@ -87,22 +93,59 @@ export default function useMedia(forms) {
   function processMediaPath(res) {
     return Promise.resolve().then(() => {
       // 通过后缀名判断是否为图片，如果选择四个图片，保留前三个
+      console.log(res);
       const { tempFiles } = res;
       const images = [],
         videos = [];
-      tempFiles.forEach(({ tempFilePath, thumbTempFilePath }) => {
-        // 图片：地址，视频：地址和封面图地址t，bug：humb真机无法获取
-        isPicture(tempFilePath)
-          ? images.push(tempFilePath)
-          : videos.push(tempFilePath);
-        // : videos.push({ value: tempFilePath, thumb: thumbTempFilePath });
+      // 分类
+      tempFiles.forEach(({ tempFilePath: path }) => {
+        isPicture(path) ? images.push(path) : videos.push(path);
       });
-      // 保证截取
-      forms.images = [...forms.images, ...images];
-      forms.videos = [...forms.videos, ...videos];
-      forms.images.length = forms.maxImageCount;
-      forms.videos.length = forms.maxVideoCount;
+
+      if (images.length && videos.length) {
+        return compressMedia(images)
+          .then(([values, exts]) => {
+            // console.log(res);
+            correct(values, exts, 'image');
+          })
+          .then(() => {
+            return compressMedia(videos);
+          })
+          .then(([values, exts]) => {
+            correct(values, exts, 'video');
+          });
+      }
+
+      if (images.length) {
+        return compressMedia(images).then(([values, exts]) => {
+          // 保证截取
+          // console.log(res);
+          correct(values, exts, 'image');
+        });
+      }
+
+      if (videos.length) {
+        return compressMedia(videos).then(([values, exts]) => {
+          // 保证截取
+          correct(values, exts, 'video');
+        });
+      }
     });
+  }
+
+  function correct(values, exts, type = 'image') {
+    console.log(forms.images, forms.videos);
+    const max = type === 'image' ? forms.maxImageCount : forms.maxVideoCount;
+    const ins = type === 'image' ? 'images' : 'videos';
+    const ext = type === 'image' ? 'imageExts' : 'videoExts';
+    forms[ins] = [...forms[ins], ...values];
+    forms[ext] = [...forms[ext], ...exts];
+    // 保证截取
+    forms[ins].length = Math.min(forms[ins].length, max);
+    forms[ext].length = Math.min(forms[ext].length, max);
+
+    // 检查数据
+    console.log(forms.images, forms.imageExts, forms.videos, forms.videoExts);
   }
 
   return {

@@ -28,6 +28,9 @@ function showToast(args) {
 function showSuccessToast(args) {
   showToast(__spreadProps(__spreadValues({ title: "You are right" }, args), { icon: "success" }));
 }
+function showErrorToast(args) {
+  showToast(__spreadProps(__spreadValues({ title: "\u7F51\u8DEF\u4E0D\u7A33\u5B9A" }, args), { icon: "error" }));
+}
 function showLoading(args) {
   common_vendor.index.showLoading(__spreadValues({
     title: "loading",
@@ -44,5 +47,6 @@ function hiddenLoading() {
   common_vendor.index.hideLoading();
 }
 exports.hiddenLoading = hiddenLoading;
+exports.showErrorToast = showErrorToast;
 exports.showLoading = showLoading;
 exports.showSuccessToast = showSuccessToast;

@@ -1,6 +1,15 @@
 import { ref, reactive } from 'vue';
-import { getUserLocationScope } from '../../utils/getSettingScope';
+import { uploadFiles } from '@/utils/file/upload.js';
+import { getUserLocationScope } from '@/utils/getSettingScope';
 import { getLocation } from '@/utils/index.js';
+import { submitOrder } from '../api';
+import { redirectTo } from '@/utils/router';
+import {
+  hiddenLoading,
+  showLoading,
+  showSuccessToast
+} from '@/utils/wechat/toast';
+import { MEDIA_URL } from '@/api/config';
 export default function useForm(showMessage) {
   const sequence = ['phone', 'username', 'remarks'];
 
@@ -14,6 +23,8 @@ export default function useForm(showMessage) {
     ordertime: '',
     images: [],
     videos: [],
+    imageExts: [],
+    videoExts: [],
     maxImageCount: 3,
     maxVideoCount: 1
   });
@@ -41,6 +52,11 @@ export default function useForm(showMessage) {
     }
   ]);
 
+  const backups = {
+    images: null,
+    videos: null
+  };
+
   // location icon
   function iconClick() {
     uni.chooseLocation({
@@ -58,10 +74,35 @@ export default function useForm(showMessage) {
   function submit() {
     checkForm()
       .then(() => {
-        console.log(forms);
+        showLoading();
+        return processMedia();
       })
-      .catch(msg => {
-        showMessage('error', msg);
+      .then(() => {
+        // 提交forms数据，将backups中图片和视频的网络地址复制到forms中
+        console.log(forms, backups);
+      })
+      .then(() => {
+        hiddenLoading(); // 不应放在finally处，toast和loading在模拟器上互相影响
+        showSuccessToast({
+          title: '预约成功'
+        });
+        // const timer = setTimeout(() => {
+        //   redirectTo('/pages/index/index');
+        //   clearTimeout(timer);
+        // }, 1500);
+      })
+      .catch(e => {
+        console.log(e);
+        const { errMsg } = e;
+        hiddenLoading();
+        showMessage(
+          'error',
+          typeof e === 'string' || e instanceof Error
+            ? e
+            : errMsg.indexOf('uploadFile:fail')
+            ? errMsg
+            : '网络异常，请重新提交或使用电话联系'
+        );
       });
   }
 
@@ -93,6 +134,55 @@ export default function useForm(showMessage) {
           forms.longitude = longitude;
         }
       });
+  }
+
+  function processMedia() {
+    return Promise.resolve()
+      .then(() => {
+        // 提交图片地址，如果提交不成功，需要保存
+        const images = forms.images.map(image => ({
+          formName: 'image',
+          path: image
+        }));
+        if (!images.length) return '';
+        return uploadFiles(MEDIA_URL, images, {
+          header: {}
+        });
+      })
+      .then((res = {}) => {
+        // 处理图片地址
+        resolveData(res, 'image');
+      })
+      .then(() => {
+        // 提交视频地址
+        const videos = forms.videos.map(video => ({
+          formName: 'image',
+          path: video
+        }));
+        if (!videos.length) return;
+        return uploadFiles(MEDIA_URL, videos, {
+          header: {}
+        });
+      })
+      .then((res = {}) => {
+        // 处理视频地址
+        // console.log(res);
+        resolveData(res, 'video');
+      });
+  }
+
+  function resolveData(res, type = 'image') {
+    console.log(res);
+    const target = [];
+    res.forEach?.(r => {
+      const {
+        code,
+        msg,
+        data: { url }
+      } = JSON.parse(r.data);
+      target.push(url || `上传失败，${code}`);
+    });
+    type === 'image' ? (backups.images = target) : (backups.videos = target);
   }
 
   return {
