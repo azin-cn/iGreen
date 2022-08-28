@@ -1,9 +1,31 @@
 <template>
   <view class="index">
-    <!-- header -->
-    <view class="header" v-if="showHeader">
-      <view class="header-bar"></view>
-      <view class="nav-bar">{{ title }}</view>
+    <!-- header，显示工作台入口或者显示标题 -->
+    <view
+      class="header"
+      :style="{
+        backgroundColor: showHeader ? 'white' : ''
+      }"
+    >
+      <!-- 状态栏占位 -->
+      <view class="header-bar" />
+      <view
+        class="nav-bar"
+        :style="{
+          'border-bottom': showHeader
+            ? '1px solid rgba(131, 131, 131, 0.3)'
+            : ''
+        }"
+      >
+        <text v-if="showHeader">{{ title }}</text>
+        <!-- 显示icon工作台入口 -->
+        <text
+          v-else
+          class="iconfont icon-gongzuotai"
+          style="font-size: 34rpx;"
+          @click="workIconClick"
+        />
+      </view>
     </view>
 
     <!-- swiper -->
@@ -31,7 +53,7 @@
             :style="{
               padding: '0 4px'
             }"
-          > 
+          >
             <view
               class="iconfont"
               :class="item.icon"
@@ -73,7 +95,6 @@
 
       <ITask v-if="isWorker" :taskIconClick="taskIconClick" :tasks="tasks" />
     </view>
-    
   </view>
 </template>
 
@@ -81,6 +102,7 @@
 import { ref, computed, watch, nextTick } from 'vue';
 import { onShow, onPageScroll } from '@dcloudio/uni-app';
 
+import { navigateTo } from '@/utils/router/index.js';
 import { getSettingScope } from '@/utils/getSettingScope.js';
 
 import IBanner from './components/IBanner/index.vue';
@@ -167,6 +189,10 @@ const {
 // useTask
 const { tasks, taskIconClick } = useTask();
 
+function workIconClick() {
+  navigateTo('/pages-worker/apply/index');
+}
+
 onPageScroll(e => {
   const { scrollTop: top } = e;
   // 设置前缀条件，避免频繁更新
@@ -199,7 +225,6 @@ onPageScroll(e => {
   right: 0;
   width: 100%;
   // padding-bottom: 8px;
-  background-color: white;
   height: calc(var(--status-bar-height) + $nav-height);
   transition: all 0.2s;
 
@@ -213,7 +238,6 @@ onPageScroll(e => {
     padding-left: 12px;
     font-size: 32rpx;
     color: black;
-    border-bottom: 1px solid rgba(131, 131, 131, 0.3);
   }
 }
 
