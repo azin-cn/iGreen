@@ -1,6 +1,6 @@
 <template>
   <view class="index">
-    <!-- header，显示工作台入口或者显示标题 -->
+    <!-- header，显示工作台入口或者显示标题，如果已经是工作人员取消申请入口的显示 -->
     <view
       class="header"
       :style="{
