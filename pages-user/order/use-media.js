@@ -10,12 +10,12 @@ import {
 } from '@/utils/wechat/media/choose.js';
 import { isPicture } from '@/utils/file/format.js';
 import { getSettingScopes } from '@/utils/getSettingScope.js';
-import { compress, compressMedia } from '../../utils/wechat/media/compress';
+import { compress, compressMedia } from '@/utils/wechat/media/compress';
 import {
   hiddenLoading,
   showErrorToast,
   showLoading
-} from '../../utils/wechat/toast';
+} from '@/utils/wechat/toast';
 
 export default function useMedia(forms) {
   function ichooseMedia() {
