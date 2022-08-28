@@ -5,12 +5,11 @@ export default function useMedia(userinfo) {
     return chooseImage({
       count: 1
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       const { tempFiles = [] } = res;
       const { tempFilePath } = tempFiles[0] || {};
       if (tempFilePath) {
         userinfo.avatar = tempFilePath;
-        console.log(tempFilePath);
       }
     });
   }

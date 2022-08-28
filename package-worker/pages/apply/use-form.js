@@ -6,8 +6,8 @@ import {
 } from '@/utils/wechat/toast';
 import { getLocation } from '@/utils/index.js';
 import { submitApply } from '@/package-worker/api/index.js';
-import upload, { uploadFiles } from '../../../utils/file/upload';
-import { MEDIA_URL } from '../../../api/config';
+import upload, { uploadFiles } from '@/utils/file/upload';
+import { MEDIA_URL } from '@/api/config';
 
 export default function useForm(userinfo, backups, showMessage) {
   function submit() {
@@ -91,7 +91,7 @@ export default function useForm(userinfo, backups, showMessage) {
         code,
         msg,
         data: { url }
-      } = JSON.parse(res[0].data);
+      } = res[0];
       backups.avatar = url;
     });
   }
