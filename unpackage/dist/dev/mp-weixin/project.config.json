@@ -26,11 +26,6 @@
           "name": "index",
           "pathName": "pages/index/index",
           "query": ""
-        },
-        {
-          "name": "order",
-          "pathName": "pages/order/index",
-          "query": ""
         }
       ]
     }

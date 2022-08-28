@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "申请",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-easyinput": "../../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput",
+    "uni-forms-item": "../../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item",
+    "uni-data-checkbox": "../../../uni_modules/uni-data-checkbox/components/uni-data-checkbox/uni-data-checkbox",
+    "uni-datetime-picker": "../../../uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker",
+    "uni-forms": "../../../uni_modules/uni-forms/components/uni-forms/uni-forms",
+    "uni-section": "../../../uni_modules/uni-section/components/uni-section/uni-section",
+    "uni-collapse-item": "../../../uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item",
+    "uni-collapse": "../../../uni_modules/uni-collapse/components/uni-collapse/uni-collapse",
+    "uni-popup-message": "../../../uni_modules/uni-popup/components/uni-popup-message/uni-popup-message",
+    "uni-popup": "../../../uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
+}

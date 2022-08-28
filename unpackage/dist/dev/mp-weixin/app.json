@@ -4,26 +4,27 @@
   ],
   "subPackages": [
     {
-      "root": "pages-user",
+      "root": "package-user",
       "pages": [
-        "order/index"
+        "pages/order/index"
       ],
-      "name": "pages-user"
+      "name": "package-user"
     },
     {
-      "root": "pages-worker",
+      "root": "package-worker",
       "pages": [
-        "workbench/index"
+        "pages/workbench/index",
+        "pages/apply/index"
       ],
-      "name": "pages-worker"
+      "name": "package-worker"
     },
     {
-      "root": "pages-admin",
+      "root": "package-admin",
       "pages": [
-        "admin/index",
-        "super-admin/index"
+        "pages/admin/index",
+        "pages/super-admin/index"
       ],
-      "name": "pages-admin"
+      "name": "package-admin"
     }
   ],
   "window": {
@@ -47,5 +48,6 @@
     "startLocationUpdate"
   ],
   "lazyCodeLoading": "requiredComponents",
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

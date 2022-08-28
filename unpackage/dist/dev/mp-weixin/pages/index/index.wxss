@@ -34,7 +34,6 @@
   left: 0;
   right: 0;
   width: 100%;
-  background-color: white;
   height: calc(var(--status-bar-height) + 54px);
   transition: all 0.2s;
 }
@@ -47,7 +46,6 @@
   padding-left: 12px;
   font-size: 32rpx;
   color: black;
-  border-bottom: 1px solid rgba(131, 131, 131, 0.3);
 }
 .wrapper.data-v-57280228 {
   position: relative;

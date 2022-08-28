@@ -1,7 +1,7 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3601228 */
-  src: url('iconfont.woff?t=1661531187757') format('woff'),
-       url('iconfont.ttf?t=1661531187757') format('truetype');
+  src: url('iconfont.woff?t=1661655093256') format('woff'),
+       url('iconfont.ttf?t=1661655093256') format('truetype');
 }
 
 .iconfont {
@@ -10,6 +10,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gongzuotai:before {
+  content: "\e68c";
+}
+
+.icon-chahao1:before {
+  content: "\e668";
 }
 
 .icon-chahao:before {

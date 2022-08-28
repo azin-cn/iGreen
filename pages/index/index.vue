@@ -190,7 +190,7 @@ const {
 const { tasks, taskIconClick } = useTask();
 
 function workIconClick() {
-  navigateTo('/pages-worker/apply/index');
+  navigateTo('/package-worker/apply/index');
 }
 
 onPageScroll(e => {

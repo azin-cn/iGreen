@@ -29,6 +29,16 @@ function getLocation() {
     });
   });
 }
+function chooseLocation() {
+  return new Promise((resolve, reject) => {
+    return utils_getSettingScope.getUserLocationScope().then(() => {
+      return common_vendor.index.chooseLocation({
+        success: resolve,
+        fail: reject
+      });
+    });
+  });
+}
 function openLocation(latitude, longitude, options = {}) {
   return new Promise((resolve, reject) => {
     utils_getSettingScope.getUserLocationScope().then(() => {
@@ -73,7 +83,7 @@ function registerTimeFormat() {
       "m+": this.getMinutes(),
       "s+": this.getSeconds(),
       "q+": Math.floor((this.getMonth() + 3) / 3),
-      "S": this.getMilliseconds()
+      S: this.getMilliseconds()
     };
     if (/(y+)/.test(fmt))
       fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -83,6 +93,7 @@ function registerTimeFormat() {
     return fmt;
   };
 }
+exports.chooseLocation = chooseLocation;
 exports.getLocation = getLocation;
 exports.makePhoneCall = makePhoneCall;
 exports.openLocation = openLocation;

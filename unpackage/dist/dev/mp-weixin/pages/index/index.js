@@ -1,5 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var utils_router_index = require("../../utils/router/index.js");
 var pages_index_useSwiper = require("./use-swiper.js");
 var pages_index_useNotice = require("./use-notice.js");
 var pages_index_useBriefInfo = require("./use-brief-info.js");
@@ -15,7 +16,6 @@ require("../../utils/storage/index.js");
 require("../../utils/request.js");
 require("../../utils/index.js");
 require("../../utils/getSettingScope.js");
-require("../../utils/router/index.js");
 if (!Math) {
   (IBanner + common_vendor.unref(INotice) + common_vendor.unref(IBriefInfo) + common_vendor.unref(IOperation) + common_vendor.unref(IMap) + common_vendor.unref(ITask))();
 }
@@ -83,6 +83,9 @@ const _sfc_main = {
       markertap
     } = pages_index_useLocation.useLocation();
     const { tasks, taskIconClick } = pages_index_useTask.useTask();
+    function workIconClick() {
+      utils_router_index.navigateTo("/package-worker/apply/index");
+    }
     common_vendor.onPageScroll((e) => {
       const { scrollTop: top } = e;
       if (!showHeader.value && top >= swiperHeight - navHeight) {
@@ -101,16 +104,20 @@ const _sfc_main = {
         a: showHeader.value
       }, showHeader.value ? {
         b: common_vendor.t(common_vendor.unref(title))
-      } : {}, {
-        c: common_vendor.o(common_vendor.unref(onImageLoadedError)),
-        d: common_vendor.p({
+      } : {
+        c: common_vendor.o(workIconClick)
+      }, {
+        d: showHeader.value ? "1px solid rgba(131, 131, 131, 0.3)" : "",
+        e: showHeader.value ? "white" : "",
+        f: common_vendor.o(common_vendor.unref(onImageLoadedError)),
+        g: common_vendor.p({
           list: common_vendor.unref(list),
           filterStyle: common_vendor.unref(filterStyle)
         }),
-        e: common_vendor.p({
+        h: common_vendor.p({
           notices: common_vendor.unref(notices)
         }),
-        f: common_vendor.f(recycleList.value, (item, k0, i0) => {
+        i: common_vendor.f(recycleList.value, (item, k0, i0) => {
           return {
             a: common_vendor.n(item.icon),
             b: item.color,
@@ -119,18 +126,18 @@ const _sfc_main = {
             e: item.icon
           };
         }),
-        g: common_vendor.p({
+        j: common_vendor.p({
           recycleBriefInfo: common_vendor.unref(recycleBriefInfo),
           onRefresh: common_vendor.unref(onRefresh)
         }),
-        h: common_vendor.p({
+        k: common_vendor.p({
           nearbyRecycleList: common_vendor.unref(nearbyRecycleList),
           orderOperation: common_vendor.unref(orderOperation),
           operationClick: common_vendor.unref(operationClick)
         }),
-        i: !common_vendor.unref(isWorker)
+        l: !common_vendor.unref(isWorker)
       }, !common_vendor.unref(isWorker) ? {
-        j: common_vendor.p({
+        m: common_vendor.p({
           markers: common_vendor.unref(markers),
           points: common_vendor.unref(points),
           navigateToMap: common_vendor.unref(navigateToMap),
@@ -138,9 +145,9 @@ const _sfc_main = {
           markertap: common_vendor.unref(markertap)
         })
       } : {}, {
-        k: common_vendor.unref(isWorker)
+        n: common_vendor.unref(isWorker)
       }, common_vendor.unref(isWorker) ? {
-        l: common_vendor.p({
+        o: common_vendor.p({
           taskIconClick: common_vendor.unref(taskIconClick),
           tasks: common_vendor.unref(tasks)
         })
