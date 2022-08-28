@@ -51,6 +51,14 @@
               @iconClick="mapIconClick"
             />
           </uni-forms-item>
+
+          <uni-forms-item label="头像" required>
+            <IAvatar
+              :src="userinfo.avatar"
+              @chooseMedia="ichooseImage"
+              @delMedia="idelImage"
+            />
+          </uni-forms-item>
         </uni-forms>
       </view>
     </uni-section>
@@ -107,14 +115,18 @@
       </view>
     </uni-section>
 
-    <view
-      class="button text-center"
-      hover-class="bg-hover-light"
-      style="width: 60%;margin: 0 auto;"
+    <button
+      :style="{
+        width: '60%',
+        height: '80rpx',
+        lineHeight: '80rpx',
+        margin: '0 auto',
+        fontSize: '16px'
+      }"
       @click="submit"
     >
-      申请
-    </view>
+      提交申请
+    </button>
 
     <uni-popup ref="popupRef" type="message">
       <uni-popup-message
@@ -136,13 +148,15 @@ export default {
 import { ref, reactive } from 'vue';
 import { chooseLocation } from '@/utils/index.js';
 
+import IAvatar from './components/IAvatar';
+
 import usePopup from './use-popup.js';
 import useForm from './use-form.js';
+import useMedia from './use-media.js';
 
 // 静态数据
 const localdata = {
-  bgImage:
-    'https://pic.rmb.bdstatic.com/bjh/news/f42ac20d29b99d87ad6ab81979b87c54.jpeg',
+  bgImage: '/static/images/apply-bg.jpeg',
   radios: {
     genders: [
       {
@@ -194,6 +208,7 @@ const userinfo = reactive({
   address: '',
   latitude: 0,
   longitude: 0,
+  avatar: '',
   members: {
     father: {
       name: '',
@@ -209,8 +224,13 @@ const userinfo = reactive({
   introduction: ''
 });
 
+// backups 是为了在发生位置错误时能够保留表单数据而设计的
+const backups = {
+  avatar: ''
+}
 const { popupRef, popup, showMessage } = usePopup();
-const { submit, checkForm } = useForm(userinfo, showMessage);
+const { submit, checkForm } = useForm(userinfo, backups, showMessage);
+const { ichooseImage, idelImage } = useMedia(userinfo);
 
 function mapIconClick(e) {
   chooseLocation().then(res => {

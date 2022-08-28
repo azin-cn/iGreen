@@ -5,5 +5,5 @@
  */
 export function submitApply(userinfo) {
   console.log('submit', userinfo);
-  return new Promise.resolve();
+  return Promise.resolve();
 }
