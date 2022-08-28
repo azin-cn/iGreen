@@ -163,7 +163,7 @@ function useForm(showMessage) {
         code,
         msg,
         data: { url }
-      } = JSON.parse(r.data);
+      } = r;
       target.push(url || `\u4E0A\u4F20\u5931\u8D25\uFF0C${code}`);
     });
     type === "image" ? backups.images = target : backups.videos = target;

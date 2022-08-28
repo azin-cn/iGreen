@@ -185,7 +185,7 @@ export default function useForm(showMessage) {
         code,
         msg,
         data: { url }
-      } = JSON.parse(r.data);
+      } = r;
       target.push(url || `上传失败，${code}`);
     });
     type === 'image' ? (backups.images = target) : (backups.videos = target);

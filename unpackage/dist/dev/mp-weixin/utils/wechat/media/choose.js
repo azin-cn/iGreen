@@ -67,6 +67,7 @@ function chooseVideoFromCamera(args = {}) {
     sourceType: ["camera"]
   }));
 }
+exports.chooseImage = chooseImage;
 exports.chooseImageFromAlbum = chooseImageFromAlbum;
 exports.chooseImageFromCamera = chooseImageFromCamera;
 exports.chooseMediaFromAlbum = chooseMediaFromAlbum;

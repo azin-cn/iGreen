@@ -23,7 +23,7 @@ function upload(url, formName, filePath, options = {}) {
       name: formName,
       filePath,
       formData: {},
-      success: resolve,
+      success: (res) => resolve(JSON.parse(res.data)),
       fail: reject
     }, options));
   });

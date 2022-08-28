@@ -84,7 +84,7 @@ const _sfc_main = {
     } = pages_index_useLocation.useLocation();
     const { tasks, taskIconClick } = pages_index_useTask.useTask();
     function workIconClick() {
-      utils_router_index.navigateTo("/package-worker/apply/index");
+      utils_router_index.navigateTo("/package-worker/pages/apply/index");
     }
     common_vendor.onPageScroll((e) => {
       const { scrollTop: top } = e;
