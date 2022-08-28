@@ -5,7 +5,7 @@ export function upload(url, formName, filePath, options = {}) {
       name: formName,
       filePath,
       formData: {},
-      success: resolve,
+      success: res => resolve(JSON.parse(res.data)), // uniapp文档显示为data为字符串格式
       fail: reject,
       ...options
     });
