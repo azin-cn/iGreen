@@ -52,7 +52,7 @@ export default function useOpeartion() {
     console.log('operationClick');
     switch (key) {
       case '__online__':
-        navigateTo('/pages-user/order/index')
+        navigateTo('/package-user/pages/order/index')
         break;
       case '__phone__':
         makePhoneCall(phoneNumber.value)
