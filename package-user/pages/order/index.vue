@@ -6,7 +6,7 @@
     >
       <image
         style="width: 100%;"
-        src="../../static/images/recycle.jpg"
+        src="/package-user/static/images/recycle.jpg"
         mode="widthFix"
       />
     </view>

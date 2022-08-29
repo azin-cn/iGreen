@@ -156,7 +156,7 @@ import useMedia from './use-media.js';
 
 // 静态数据
 const localdata = {
-  bgImage: '/static/images/apply-bg.jpeg',
+  bgImage: '/package-worker/static/images/apply-bg.jpeg',
   radios: {
     genders: [
       {
@@ -227,7 +227,7 @@ const userinfo = reactive({
 // backups 是为了在发生位置错误时能够保留表单数据而设计的
 const backups = {
   avatar: ''
-}
+};
 const { popupRef, popup, showMessage } = usePopup();
 const { submit, checkForm } = useForm(userinfo, backups, showMessage);
 const { ichooseImage, idelImage } = useMedia(userinfo);

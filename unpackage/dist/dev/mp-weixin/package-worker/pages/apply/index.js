@@ -44,7 +44,7 @@ const __default__ = {
 const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
   setup(__props) {
     const localdata = {
-      bgImage: "/static/images/apply-bg.jpeg",
+      bgImage: "/package-worker/static/images/apply-bg.jpeg",
       radios: {
         genders: [
           {
